@@ -68,7 +68,9 @@ export default defineComponent({
     //
     txData.vin.forEach((item) => {
       if (item.tokenQty) {
-        inputs.push([item.tokenQtyStr, createSlpAddressCell(item.address)]);
+        const adderssCell = createSlpAddressCell(item.address);
+
+        inputs.push([numberWithCommas(item.tokenQty), adderssCell]);
       }
     });
 
@@ -80,7 +82,7 @@ export default defineComponent({
 
         //
         if (item.tokenQty) {
-          outputs.push([item.tokenQty, adderssCell]);
+          outputs.push([numberWithCommas(item.tokenQty), adderssCell]);
         } else if (item.isMintBaton) {
           outputs.push([t("mint_baton"), adderssCell]);
         }

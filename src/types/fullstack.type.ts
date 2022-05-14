@@ -2,13 +2,6 @@
 import { ComputedRef } from "vue";
 import { useAxiosReturn } from "@/types/axios.type";
 
-// https://api.fullstack.cash/v5/electrumx/balance
-// Address
-export interface address_balance {
-  success: boolean;
-  balance: { confirmed: number; unconfirmed: number };
-}
-
 // https://api.fullstack.cash/v5/psf/slp/token
 // Token end point
 export interface token_data {

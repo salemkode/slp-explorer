@@ -31,7 +31,7 @@ import { defineComponent, reactive } from "vue";
 
 // modules
 import bchaddr from "bchaddrjs-slp";
-import { getAddressBalance } from "@/modules/fullstack";
+import { getAddressTotalReceived } from "@/modules/actorforth";
 
 // Use
 import { useClipboard } from "@/use/useClipboard";
@@ -59,13 +59,16 @@ export default defineComponent({
     });
 
     //
-    getAddressBalance(status.address).then((balance) => {
-      // convert from sat to bch
-      status.balance = balance / 100000000;
-    });
+    async function updateAddressBalance() {
+      const totalReceived = await getAddressTotalReceived(status.address);
+
+      // Update data im status
+      status.balance = totalReceived;
+    }
 
     //
     function toggleShowPopup() {
+      updateAddressBalance();
       status.showPopup = !status.showPopup;
     }
 

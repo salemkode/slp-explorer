@@ -61,7 +61,7 @@ export default defineComponent({
 
       return {
         text: slpAddress,
-        url: "/token/" + slpAddress,
+        url: "/address/" + slpAddress,
       };
     }
 

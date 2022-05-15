@@ -5,7 +5,7 @@
         <div class="left col-md-8">
           <h3 class="index_page_header" v-text="$t('index_page_header')" />
           <p v-text="$t('index_page_subheader')" />
-          <div class="pe-5">
+          <div class="search-warp">
             <group-search />
           </div>
         </div>
@@ -56,5 +56,11 @@ export default defineComponent({
 
 .hero .sub-buttons > * {
   margin-right: 8px;
+}
+
+@media (min-width: 768px) {
+  .hero .search-warp {
+    padding-right: 3rem;
+  }
 }
 </style>

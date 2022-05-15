@@ -60,7 +60,13 @@ export default defineComponent({
           url: txData.tokenUri,
         },
       ],
-      [t("document_checksum"), txData.tokenDocHash],
+      [
+        t("document_checksum"),
+        {
+          text: txData.tokenDocHash,
+          warp: true,
+        },
+      ],
     ]);
 
     return { details };

@@ -6,7 +6,7 @@
       :class="{ 'word-brack-all': item.warp }"
       :text="item.copy ? item.text : ''"
     >
-      <info-icon v-if="item.tokenIcon" :tokenId="item.text" :size="32" />
+      <info-icon v-if="item.tokenIcon" :tokenId="item.tokenIcon" :size="32" />
       <app-link v-if="item.url" :to="item.url" v-text="item.text" />
       <span v-else> {{ item.text }} </span>
     </Copy>

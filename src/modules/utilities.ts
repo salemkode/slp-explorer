@@ -33,5 +33,5 @@ export function slice(
 
 //
 export function getShortTxid(txid: string): string {
-  return `${txid.slice(0, 12)} ..... ${txid.slice(-5)}`;
+  return `${txid.slice(0, 12)}.....${txid.slice(-5)}`;
 }

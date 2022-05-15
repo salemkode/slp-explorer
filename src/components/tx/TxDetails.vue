@@ -46,12 +46,19 @@ export default defineComponent({
       [t("type"), txData.tokenTxType],
       [t("block"), txData.blockheight],
       [t("timestamp"), new Date(txData.blocktime * 1000).toUTCString()],
-      [t("txid"), txData.txid],
+      [
+        t("txid"),
+        {
+          text: txData.txid,
+          warp: true,
+        },
+      ],
       [
         t("creator"),
         {
           text: creator,
           url: `/address/${creator}`,
+          warp: true,
         },
       ],
     ]);

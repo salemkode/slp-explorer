@@ -62,6 +62,7 @@ export default defineComponent({
       return {
         text: slpAddress,
         url: "/address/" + slpAddress,
+        warp: true,
       };
     }
 

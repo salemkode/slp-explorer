@@ -41,6 +41,7 @@ export default defineComponent({
           text: txData.tokenId,
           copy: true,
           url: `/token/${txData.tokenId}`,
+          warp: true,
         },
       ],
       [t("version"), versionName(+txData.tokenType)],

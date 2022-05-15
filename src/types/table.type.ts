@@ -6,7 +6,8 @@ interface table_cell__object {
   text: string;
   copy?: boolean;
   url?: string;
-  tokenIcon?: boolean;
+  tokenIcon?: string;
+  warp?: boolean;
 }
 
 //

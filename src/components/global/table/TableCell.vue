@@ -2,18 +2,20 @@
   <td>
     <Copy
       v-if="typeof item == 'object'"
-      class="d-flex align-items-center word-brack-all"
+      class="d-flex align-items-center"
+      :class="{ 'word-brack-all': item.warp }"
       :text="item.copy ? item.text : ''"
     >
       <info-icon v-if="item.tokenIcon" :tokenId="item.text" :size="32" />
-      <app-link :to="item.url" v-text="item.text" />
+      <app-link v-if="item.url" :to="item.url" v-text="item.text" />
+      <span v-else> {{ item.text }} </span>
     </Copy>
 
     <!-- Empty value of item -->
     <pre v-else-if="item === ''" v-text="' '" />
 
     <!--  -->
-    <span class="word-brack-all" v-else>
+    <span v-else>
       {{ item }}
     </span>
   </td>

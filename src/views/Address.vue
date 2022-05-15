@@ -48,9 +48,15 @@ export default defineComponent({
 
       // Convert Address type
       const addresses = reactive([
-        [t("slp_address"), bchaddr.toSlpAddress(address)],
-        [t("cash_address"), bchaddr.toCashAddress(address)],
-        [t("legacy_address"), bchaddr.toLegacyAddress(address)],
+        [t("slp_address"), { text: bchaddr.toSlpAddress(address), warp: true }],
+        [
+          t("cash_address"),
+          { text: bchaddr.toCashAddress(address), warp: true },
+        ],
+        [
+          t("legacy_address"),
+          { text: bchaddr.toLegacyAddress(address), warp: true },
+        ],
       ]);
 
       // Use token data by id

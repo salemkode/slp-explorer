@@ -6,7 +6,7 @@
           <h3 class="index_page_header" v-text="$t('index_page_header')" />
           <p v-text="$t('index_page_subheader')" />
           <div class="pe-5">
-            <Search />
+            <group-search />
           </div>
         </div>
         <div class="right col-md-4">
@@ -24,13 +24,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Search from "@/components/global/Search.vue";
+import GroupSearch from "@/components/global/search/GroupSearch.vue";
 import AnalyticsContainer from "@/components/global/analytics/AnalyticsContainer.vue";
 
 export default defineComponent({
   name: "Home-Hero",
   components: {
-    Search,
+    GroupSearch,
     AnalyticsContainer,
   },
   setup() {

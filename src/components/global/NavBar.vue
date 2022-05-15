@@ -1,5 +1,6 @@
 <template>
   <header>
+    <nav-search />
     <nav class="navbar container">
       <router-link class="navbar-brand" to="/">
         <img src="@/assets/images/slp-logo.svg" alt="" />
@@ -22,10 +23,11 @@ import { defineComponent } from "vue";
 // Components
 import DonateButton from "@/components/global/DonateButton.vue";
 import AppLink from "@/components/global/AppLink.vue";
+import NavSearch from "./search/NavSearch.vue";
 
 //
 export default defineComponent({
-  components: { AppLink, DonateButton },
+  components: { AppLink, DonateButton, NavSearch },
   setup() {
     const routers = {
       mainmenu_explorer: "/",

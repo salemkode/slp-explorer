@@ -1,23 +1,25 @@
 <template>
   <div class="tabel-container">
-    <table class="table table-striped">
-      <thead v-if="headers">
-        <tr>
-          <td
-            v-for="(header, key) in headers"
+    <div class="table-warp">
+      <table class="table table-striped">
+        <thead v-if="headers">
+          <tr>
+            <td
+              v-for="(header, key) in headers"
+              :key="key"
+              v-text="header ? $t(header) : ''"
+            />
+          </tr>
+        </thead>
+        <tbody>
+          <table-row
+            v-for="(cells, key) in currentPageItems"
             :key="key"
-            v-text="header ? $t(header) : ''"
+            :cells="cells"
           />
-        </tr>
-      </thead>
-      <tbody>
-        <table-row
-          v-for="(cells, key) in currentPageItems"
-          :key="key"
-          :cells="cells"
-        />
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
     <pagination-nav :itemsLength="status.allPage" v-model="status.pagination" />
   </div>
 </template>
@@ -94,7 +96,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.tabel-container {
+.table-warp {
   overflow-x: auto;
 }
 

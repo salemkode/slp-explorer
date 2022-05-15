@@ -50,7 +50,7 @@ export default defineComponent({
     //
     const tokenList: table_row[] = unEmptyTokens.map((item) => {
       //
-      const txCell = {
+      const tokenCell = {
         text: getShortTxid(item.tokenId),
         url: `/token/${item.tokenId}`,
         copy: true,
@@ -58,7 +58,7 @@ export default defineComponent({
       };
 
       //
-      return [txCell, t("pending"), t("pending"), item.qty];
+      return [tokenCell, t("pending"), t("pending"), item.qty];
 
       //
       /*

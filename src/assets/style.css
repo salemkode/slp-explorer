@@ -1,70 +1,74 @@
-@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url("https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css");
 
 /** Components **/
 .table-title {
   margin-top: 10px;
 }
+
 /* Reset */
-.app .card {
-    position: static;
-  }
-  
-  .app .input-group {
-    position: static;
-  }
-  
-  html,
-  body,
-  .app {
-    min-height: 100vh;
-  }
-  
-  /* Table */
-  .table {
-    font-size: 14px;
-  }
-  
-  .table td {
-    vertical-align: middle;
-  }
-  
-  /* */
-  .app {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .page {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .tables-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
-  
-  .tables-container > * {
-    flex-grow: 1;
-    padding: 5px;
-  }
-  
-  .page > * {
-    flex-grow: 1;
-  }
-  
-  .word-brack-all {
-    word-break: break-all;
-  }
-  
-  /* fade */
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
+
+i.fi {
+  display: inline-flex;
+  align-items: center;
+}
+
+.app .input-group {
+  position: static;
+}
+
+html,
+body,
+.app {
+  min-height: 100vh;
+}
+
+/* Table */
+.table {
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* */
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.tables-container > * {
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.page > * {
+  flex-grow: 1;
+}
+
+.word-brack-all {
+  word-break: break-all;
+}
+
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

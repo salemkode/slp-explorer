@@ -1,7 +1,7 @@
 <template>
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="tx-page container">
-      <info-container :address="addresses[0][1]" :title="$t('address')" />
+      <info-container :address="address" :title="$t('address')" />
       <Table :items="addresses" />
       <token-balances :address="result.balance" />
       <address-tx :txs="result.balance.txs" />
@@ -66,7 +66,7 @@ export default defineComponent({
       );
 
       //
-      return { addresses, result, error, loading };
+      return { addresses, address, result, error, loading };
     } else {
       return {
         result: null,

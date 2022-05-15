@@ -13,6 +13,9 @@ import { defineComponent, PropType, reactive } from "vue";
 // Components
 import Table from "@/components/global/table/Table.vue";
 
+// Types
+import { table_row } from "@/types/table.type";
+
 // Use
 import { useI18n } from "vue-i18n";
 
@@ -34,7 +37,7 @@ export default defineComponent({
     const { t } = useI18n();
 
     //
-    const details = reactive([
+    const details = reactive<table_row[]>([
       [
         t("token_id"),
         {

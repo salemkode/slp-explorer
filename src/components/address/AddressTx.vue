@@ -18,6 +18,7 @@ import PaginationTable from "@/components/global/table/PaginationTable.vue";
 
 // Types
 import { address_data } from "@/types/fullstack.type";
+import { table_row } from "@/types/table.type";
 import { PropType } from "vue";
 
 // Use
@@ -44,13 +45,13 @@ export default defineComponent({
     });
 
     // TODO: Get more data for tx
-    const txList = props.txs.map((item) => [
+    const txList: table_row[] = props.txs.map((item) => [
       item.height,
       {
         text: getShortTxid(item.txid),
         url: `/tx/${item.txid}`,
         copy: true,
-        tokenIcon: false,
+        tokenIcon: item.txid,
       },
       t("pending"),
       t("pending"),

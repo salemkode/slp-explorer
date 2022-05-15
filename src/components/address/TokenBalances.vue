@@ -18,6 +18,7 @@ import PaginationTable from "@/components/global/table/PaginationTable.vue";
 
 // Types
 import { address_data } from "@/types/fullstack.type";
+import { table_row } from "@/types/table.type";
 import { PropType } from "vue";
 
 // Use
@@ -47,13 +48,13 @@ export default defineComponent({
     });
 
     //
-    const tokenList = unEmptyTokens.map((item) => {
+    const tokenList: table_row[] = unEmptyTokens.map((item) => {
       //
       const txCell = {
         text: getShortTxid(item.tokenId),
         url: `/token/${item.tokenId}`,
         copy: true,
-        tokenIcon: true,
+        tokenIcon: item.tokenId,
       };
 
       //

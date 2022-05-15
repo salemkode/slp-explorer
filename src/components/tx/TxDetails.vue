@@ -13,6 +13,9 @@ import { tx_data } from "@/types/fullstack.type";
 // Components
 import Table from "@/components/global/table/Table.vue";
 
+// Types
+import { table_row } from "@/types/table.type";
+
 // Use
 import { useI18n } from "vue-i18n";
 
@@ -42,7 +45,7 @@ export default defineComponent({
     const { t } = useI18n();
 
     //
-    const stats = reactive([
+    const stats = reactive<table_row[]>([
       [t("type"), txData.tokenTxType],
       [t("block"), txData.blockheight],
       [t("timestamp"), new Date(txData.blocktime * 1000).toUTCString()],

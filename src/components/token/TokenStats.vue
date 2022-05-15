@@ -13,6 +13,9 @@ import { defineComponent, PropType, reactive } from "vue";
 // Components
 import Table from "@/components/global/table/Table.vue";
 
+// Types
+import { table_row } from "@/types/table.type";
+
 // Use
 import { useI18n } from "vue-i18n";
 
@@ -39,7 +42,7 @@ export default defineComponent({
       : "Dead Ended";
 
     //
-    const stats = reactive([
+    const stats = reactive<table_row[]>([
       [t("block_created"), tokenData.blockCreated],
       [t("minting_baton_status"), mintBatonStatus],
       [t("tokenstats_satoshis_locked_up"), "not found in slp indexer"],

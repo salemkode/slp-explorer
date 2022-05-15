@@ -28,7 +28,7 @@ import { useI18n } from "vue-i18n";
 
 // Types
 import { PropType } from "vue";
-import { table_cell } from "@/types/table.type";
+import { table_row } from "@/types/table.type";
 import { tx_data } from "@/types/fullstack.type";
 
 //
@@ -52,8 +52,8 @@ export default defineComponent({
     const headers = ["amount", "address"];
 
     //
-    const inputs = reactive<table_cell[][]>([]);
-    const outputs = reactive<table_cell[][]>([]);
+    const inputs = reactive<table_row[]>([]);
+    const outputs = reactive<table_row[]>([]);
 
     //
     function createSlpAddressCell(address: string) {

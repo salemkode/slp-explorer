@@ -13,7 +13,6 @@
     "bchaddrjs-slp": "^0.2.14",
     "bootstrap": "^5.1.3",
     "core-js": "^3.6.5",
-    "grpc-bchrpc-web": "^0.15.1",
     "gsap": "^3.10.4",
     "jdenticon": "^3.1.1",
     "qrcode.vue": "^3.3.3",

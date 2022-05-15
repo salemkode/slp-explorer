@@ -1,7 +1,7 @@
 <template>
-  <div class="align-items-center d-flex flex-md-row my-3 py-3">
+  <div class="align-items-center d-flex flex-column flex-md-row my-3 py-3">
     <InfoIcon :address="address" :tokenId="tokenId" />
-    <div class="token-info word-brack-all w-100">
+    <div class="px-2 word-brack-all w-100">
       <h3 v-text="title" />
       <Copy :text="address || tokenId">
         <span v-text="address || tokenId" />

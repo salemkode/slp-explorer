@@ -69,6 +69,5 @@ export default defineComponent({
 .icon > * {
   width: var(--icon-size);
   height: var(--icon-size);
-  margin-right: 20px;
 }
 </style>

@@ -58,10 +58,16 @@ export default defineComponent({
         {
           text: tokenData.documentUri,
           copy: !!tokenData.documentUri,
-          url: tokenData.documentUri,
+          url: tokenData.documentUri !== "none" ? tokenData.documentUri : "",
         },
       ],
-      [t("document_checksum"), tokenData.documentHash],
+      [
+        t("document_checksum"),
+        {
+          text: tokenData.documentHash,
+          warp: true,
+        },
+      ],
     ]);
 
     return { details };

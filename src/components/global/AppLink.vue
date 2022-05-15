@@ -2,7 +2,9 @@
   <a v-if="isExternalLink" v-bind="$attrs" :href="to" target="_blank">
     <slot />
   </a>
-  <router-link v-else :to="to" v-bind="$attrs" />
+  <router-link v-else :to="to" v-bind="$attrs">
+    <slot />
+  </router-link>
 </template>
 
 <script lang="ts">

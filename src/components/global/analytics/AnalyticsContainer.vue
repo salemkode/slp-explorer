@@ -1,6 +1,6 @@
 <template>
-  <div class="analytics d-flex">
-    <AnalyticsCard
+  <div class="d-flex flex-column flex-md-row">
+    <analytics-card
       v-for="item in items"
       :key="item.title"
       :title="item.title"
@@ -28,20 +28,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.analytics {
-  display: flex;
-  flex-direction: column;
-}
-.analytics .AnalyticsCard {
-  background: red;
-}
-
-/* MD */
-@media (min-width: 768px) {
-  .analytics {
-    flex-direction: row;
-  }
-}
-</style>

@@ -27,10 +27,18 @@ export default defineComponent({
 
 <style scoped>
 .card {
-  margin: 5px;
+  margin: 5px 0;
   width: 100%;
 }
+
 .card header {
   margin-bottom: 5px;
+}
+
+/* MD */
+@media (min-width: 768px) {
+  .card:not(:first-child, :last-child) {
+    margin: 5px 10px;
+  }
 }
 </style>

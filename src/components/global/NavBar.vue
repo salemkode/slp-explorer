@@ -30,8 +30,8 @@ export default defineComponent({
   components: { AppLink, DonateButton, NavSearch },
   setup() {
     const routers = {
-      mainmenu_explorer: "/",
-      mainmenu_all_tokens: "/alltoken",
+      // mainmenu_explorer: "/",
+      // mainmenu_all_tokens: "/alltoken",
     };
 
     //
@@ -50,11 +50,14 @@ export default defineComponent({
   flex-direction: row;
 }
 
+.navbar .navbar-nav :not(:first-child, :last-child) {
+  margin: 0 10px;
+}
+
 .navbar .navbar-nav .nav-link {
-  transition: border 1s;
+  transition: color 1s;
   color: inherit;
   padding: 0;
-  margin: 0 5px;
 }
 
 .navbar .navbar-nav .nav-link.active {

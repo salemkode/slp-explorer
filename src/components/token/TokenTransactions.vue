@@ -76,7 +76,7 @@ export default defineComponent({
 
     //
     function getRealQty(qty: string | number): number {
-      return +String(qty).slice(0, -props.decimals);
+      return +qty / props.decimals ** 10;
     }
 
     // Map txs to [txid, type, qty, height]

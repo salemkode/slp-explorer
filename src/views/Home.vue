@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <Exchanges />
+    <Sponsors />
   </div>
 </template>
 
@@ -25,13 +25,13 @@ import { defineComponent, reactive } from "vue";
 
 // Components
 import Hero from "@/components/home/Hero.vue";
-import Exchanges from "@/components/home/Exchanges.vue";
+import Sponsors from "@/components/home/Sponsors.vue";
 import AppLink from "@/components/global/AppLink.vue";
 
 //
 export default defineComponent({
   name: "Home",
-  components: { Hero, Exchanges, AppLink },
+  components: { Hero, Sponsors, AppLink },
   setup() {
     const infoUrls = reactive<{
       [key: string]: { title: string; url: string };

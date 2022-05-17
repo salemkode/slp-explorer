@@ -1,16 +1,16 @@
 <template>
-  <Loading :loading="loading" :error="error">
-    <div v-if="result" class="tx-page container">
+  <Loading :loading="request.loading.value" :error="request.error.value">
+    <div v-if="request.result.value" class="tx-page container">
       <info-container :address="address" :title="$t('address')" />
-      <token-balances :address="result.balance" />
-      <address-tx :txs="result.balance.txs" />
       <addresses-table :address="address" />
+      <token-balances :address="request.result.value.balance" />
+      <address-tx :txs="request.result.value.balance.txs" />
     </div>
   </Loading>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, computed } from "vue";
 import bchaddr from "bchaddrjs-slp";
 
 // Use
@@ -39,19 +39,19 @@ export default defineComponent({
     const router = useRouter();
 
     // Get tokenId of page
-    const address = route.params.address as string;
+    const address = computed(() => route.params.address as string);
 
     //
     if (bchaddr.isValidAddress(address.value)) {
       router.push(bchaddr.toSlpAddress(address.value));
 
       // Use token data by id
-      const { result, error, loading } = useAddress(
-        bchaddr.toCashAddress(address)
+      const request = computed(() =>
+        useAddress(bchaddr.toCashAddress(address.value))
       );
 
       //
-      return { addresses, address, result, error, loading };
+      return { address, request };
     } else {
       return {
         result: null,

@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, computed } from "vue";
 import bchaddr from "bchaddrjs-slp";
 import { tx_data } from "@/types/fullstack.type";
 
@@ -30,15 +30,16 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
     //
     let creator = "";
 
-    const addresses = txData.vout[1].scriptPubKey.addresses;
-    if (addresses) {
-      creator = bchaddr.toSlpAddress(addresses[0]);
+    //
+    const addresses = computed(
+      () => props.txData.vout[1].scriptPubKey.addresses
+    );
+
+    if (addresses.value) {
+      creator = bchaddr.toSlpAddress(addresses.value[0]);
     }
 
     //
@@ -46,13 +47,13 @@ export default defineComponent({
 
     //
     const stats = reactive<table_row[]>([
-      [t("type"), txData.tokenTxType],
-      [t("block"), txData.blockheight],
-      [t("timestamp"), new Date(txData.blocktime * 1000).toUTCString()],
+      [t("type"), props.txData.tokenTxType],
+      [t("block"), props.txData.blockheight],
+      [t("timestamp"), new Date(props.txData.blocktime * 1000).toUTCString()],
       [
         t("txid"),
         {
-          text: txData.txid,
+          text: props.txData.txid,
           warp: true,
         },
       ],

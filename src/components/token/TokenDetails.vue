@@ -30,9 +30,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const tokenData = props.tokenData;
-
     //
     const { t } = useI18n();
 
@@ -41,30 +38,33 @@ export default defineComponent({
       [
         t("token_id"),
         {
-          text: tokenData.tokenId,
+          text: props.tokenData.tokenId,
           copy: true,
-          url: `/tx/${tokenData.tokenId}`,
+          url: `/tx/${props.tokenData.tokenId}`,
           warp: true,
         },
       ],
-      [t("version"), versionName(+tokenData.type)],
-      [t("name"), tokenData.name],
-      [t("symbol"), tokenData.ticker],
+      [t("version"), versionName(+props.tokenData.type)],
+      [t("name"), props.tokenData.name],
+      [t("symbol"), props.tokenData.ticker],
       [t("creator"), "soon"],
       [t("timestamp"), "soon"],
-      [t("decimals"), tokenData.decimals],
+      [t("decimals"), props.tokenData.decimals],
       [
         t("document_uri"),
         {
-          text: tokenData.documentUri,
-          copy: !!tokenData.documentUri,
-          url: tokenData.documentUri !== "none" ? tokenData.documentUri : "",
+          text: props.tokenData.documentUri,
+          copy: !!props.tokenData.documentUri,
+          url:
+            props.tokenData.documentUri !== "none"
+              ? props.tokenData.documentUri
+              : "",
         },
       ],
       [
         t("document_checksum"),
         {
-          text: tokenData.documentHash,
+          text: props.tokenData.documentHash,
           warp: true,
         },
       ],

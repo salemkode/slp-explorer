@@ -42,9 +42,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
     //
     const { t } = useI18n();
 
@@ -67,7 +64,7 @@ export default defineComponent({
     }
 
     //
-    txData.vin.forEach((item) => {
+    props.txData.vin.forEach((item) => {
       if (item.tokenQty) {
         const adderssCell = createSlpAddressCell(item.address);
 
@@ -76,7 +73,7 @@ export default defineComponent({
     });
 
     //
-    txData.vout.forEach((item) => {
+    props.txData.vout.forEach((item) => {
       const addresses = item.scriptPubKey.addresses;
       if (addresses) {
         const adderssCell = createSlpAddressCell(addresses[0]);

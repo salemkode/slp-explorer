@@ -30,9 +30,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
     //
     const { t } = useI18n();
 
@@ -41,29 +38,29 @@ export default defineComponent({
       [
         t("token_id"),
         {
-          text: txData.tokenId,
+          text: props.txData.tokenId,
           copy: true,
-          url: `/token/${txData.tokenId}`,
+          url: `/token/${props.txData.tokenId}`,
           warp: true,
         },
       ],
-      [t("version"), versionName(+txData.tokenType)],
-      [t("name"), txData.tokenName],
-      [t("symbol"), txData.tokenTicker],
+      [t("version"), versionName(+props.txData.tokenType)],
+      [t("name"), props.txData.tokenName],
+      [t("symbol"), props.txData.tokenTicker],
       [t("timestamp"), "soon"],
-      [t("decimals"), txData.tokenDecimals],
+      [t("decimals"), props.txData.tokenDecimals],
       [
         t("document_uri"),
         {
-          text: txData.tokenUri,
-          copy: !!txData.tokenUri,
-          url: txData.tokenUri,
+          text: props.txData.tokenUri,
+          copy: !!props.txData.tokenUri,
+          url: props.txData.tokenUri,
         },
       ],
       [
         t("document_checksum"),
         {
-          text: txData.tokenDocHash,
+          text: props.txData.tokenDocHash,
           warp: true,
         },
       ],

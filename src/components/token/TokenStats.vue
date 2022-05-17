@@ -30,25 +30,28 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const tokenData = props.tokenData;
-
     //
     const { t } = useI18n();
 
     //
-    const mintBatonStatus = tokenData.mintBatonIsActive
+    const mintBatonStatus = props.tokenData.mintBatonIsActive
       ? "Alive"
       : "Dead Ended";
 
     //
     const stats = reactive<table_row[]>([
-      [t("block_created"), tokenData.blockCreated],
+      [t("block_created"), props.tokenData.blockCreated],
       [t("minting_baton_status"), mintBatonStatus],
       [t("tokenstats_satoshis_locked_up"), "not found in slp indexer"],
       [t("minting_baton_utxo"), "not found in slp indexer"],
-      [t("tokenstats_tokens_minted"), numberWithCommas(+tokenData.totalMinted)],
-      [t("tokenstats_tokens_burned"), numberWithCommas(+tokenData.totalBurned)],
+      [
+        t("tokenstats_tokens_minted"),
+        numberWithCommas(+props.tokenData.totalMinted),
+      ],
+      [
+        t("tokenstats_tokens_burned"),
+        numberWithCommas(+props.tokenData.totalBurned),
+      ],
     ]);
 
     //

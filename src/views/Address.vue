@@ -2,9 +2,9 @@
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="tx-page container">
       <info-container :address="address" :title="$t('address')" />
-      <Table :items="addresses" />
       <token-balances :address="result.balance" />
       <address-tx :txs="result.balance.txs" />
+      <addresses-table :address="address" />
     </div>
   </Loading>
 </template>
@@ -13,23 +13,24 @@
 import { defineComponent, reactive } from "vue";
 import bchaddr from "bchaddrjs-slp";
 
-// Types
-import { table_row } from "@/types/table.type";
-
 // Use
 import { useAddress } from "@/use/useAddress";
 import { useRoute, useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
 
 // Components
 import InfoContainer from "@/components/global/infoContainer/InfoContainer.vue";
-import Table from "@/components/global/table/Table.vue";
 import TokenBalances from "@/components/address/TokenBalances.vue";
 import AddressTx from "@/components/address/AddressTx.vue";
+import AddressesTable from "@/components/address/AddressesTable.vue";
 
 //
 export default defineComponent({
-  components: { InfoContainer, Table, TokenBalances, AddressTx },
+  components: {
+    InfoContainer,
+    TokenBalances,
+    AddressTx,
+    AddressesTable,
+  },
   setup() {
     // defined route
     const route = useRoute();
@@ -41,24 +42,8 @@ export default defineComponent({
     const address = route.params.address as string;
 
     //
-    const { t } = useI18n();
-
-    //
-    if (bchaddr.isValidAddress(address)) {
-      router.push(bchaddr.toSlpAddress(address));
-
-      // Convert Address type
-      const addresses = reactive<table_row[]>([
-        [t("slp_address"), { text: bchaddr.toSlpAddress(address), warp: true }],
-        [
-          t("cash_address"),
-          { text: bchaddr.toCashAddress(address), warp: true },
-        ],
-        [
-          t("legacy_address"),
-          { text: bchaddr.toLegacyAddress(address), warp: true },
-        ],
-      ]);
+    if (bchaddr.isValidAddress(address.value)) {
+      router.push(bchaddr.toSlpAddress(address.value));
 
       // Use token data by id
       const { result, error, loading } = useAddress(

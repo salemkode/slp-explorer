@@ -30,6 +30,9 @@ export default defineComponent({
     //
     function searchMethod() {
       search(searchWord.value);
+
+      // Empty the search field
+      searchWord.value = "";
     }
 
     //

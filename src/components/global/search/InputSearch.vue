@@ -28,6 +28,9 @@ export default defineComponent({
     function inputEvent(event: KeyboardEvent) {
       if (event.key === "Enter") {
         search(searchWord.value);
+
+        // Empty the search field
+        searchWord.value = "";
       }
     }
 

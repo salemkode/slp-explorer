@@ -12,6 +12,7 @@ export default defineComponent({
   props: {
     error: {
       type: Object as PropType<{ status: number; message: string }>,
+      required: true,
     },
   },
   setup() {
@@ -19,6 +20,7 @@ export default defineComponent({
       404: "/image/errors/not_found.svg",
       400: "/image/errors/empty.svg",
       503: "/image/errors/server-down.svg",
+      429: "/image/errors/server-down.svg",
     };
 
     return { errorImages };

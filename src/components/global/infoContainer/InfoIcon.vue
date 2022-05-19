@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, watch } from "vue";
 import { toSvg } from "jdenticon";
 
 // Components
@@ -36,6 +36,13 @@ export default defineComponent({
     let status = reactive({
       firstError: true,
       url: `https://icons.fountainhead.cash/${props.size}/${props.tokenId}.png`,
+    });
+
+    //
+    watch(props, () => {
+      console.log("change");
+      status.firstError = true;
+      status.url = `https://icons.fountainhead.cash/${props.size}/${props.tokenId}.png`;
     });
 
     function imageLoadError() {

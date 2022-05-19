@@ -76,6 +76,7 @@ export default defineComponent({
 
     //
     function getRealQty(qty: string | number): number {
+      if (props.decimals === 0) return +qty;
       return +qty / props.decimals ** 10;
     }
 

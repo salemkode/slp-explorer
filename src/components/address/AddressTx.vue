@@ -51,7 +51,6 @@ export default defineComponent({
         text: getShortTxid(item.txid),
         url: `/tx/${item.txid}`,
         copy: true,
-        tokenIcon: item.txid,
       },
       t("pending"),
       t("pending"),

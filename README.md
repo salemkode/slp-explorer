@@ -1,6 +1,28 @@
-# salemkode-slp-explorer
+# Slp explorer
 
-## Project setup
+#### Easy way to track slp transaction and token in bitcoin cash
+
+## Explorer Pages
+
+#### Token Page
+
+```
+/token/:tokenid
+```
+
+#### Transaction Page
+
+```
+/tx/:txid
+```
+
+#### Address Page
+
+```
+/token/:address
+```
+
+#### Project setup
 ```
 yarn install
 ```

@@ -34,10 +34,8 @@
     <div class="copy-right bg-dark text-white p-3">
       <div class="container">
         <p class="mb-0">
-          slp explorer © {{ new Date().getFullYear() }}
+          SLP Explorer © {{ new Date().getFullYear() }}
           <span class="mx-1">|</span> Made with
-          <span style="color: red">❤</span>
-          by
           <a class="mr-2" href="https://salemkode.com/">SalemKode</a>
         </p>
       </div>

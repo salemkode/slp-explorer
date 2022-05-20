@@ -3,8 +3,8 @@
     <InfoIcon :address="address" :tokenId="tokenId" />
     <div class="px-2 word-brack-all w-100">
       <h3 v-text="title" />
-      <Copy :text="address || tokenId">
-        <span v-text="address || tokenId" />
+      <Copy :text="tokenId || address">
+        <span v-text="tokenId || address" />
       </Copy>
     </div>
   </div>
@@ -13,9 +13,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
+// Components
 import Copy from "@/components/global/Copy.vue";
 import InfoIcon from "@/components/global/infoContainer/InfoIcon.vue";
 
+//
 export default defineComponent({
   name: "InfoContainer",
   components: { InfoIcon, Copy },

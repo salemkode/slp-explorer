@@ -10,7 +10,7 @@
 
 <script lang="ts">
 // Modules
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref, watch } from "vue";
 import { numberWithCommas, getShortTxid } from "@/modules/utilities";
 
 // Components
@@ -23,6 +23,7 @@ import { PropType } from "vue";
 
 // Use
 import { useI18n } from "vue-i18n";
+import { useToken } from "@/use/useToken";
 
 //
 export default defineComponent({
@@ -49,34 +50,31 @@ export default defineComponent({
 
     //
     const tokenList: table_row[] = unEmptyTokens.map((item) => {
-      //
-      const tokenCell = {
-        text: getShortTxid(item.tokenId),
-        url: `/token/${item.tokenId}`,
-        copy: true,
-        tokenIcon: item.tokenId,
-      };
-
-      //
-      return [tokenCell, t("pending"), t("pending"), item.qty];
-
-      //
-      /*
-      * Computed in table not work now
       const { result } = useToken(item.tokenId, false);
-      return computed(() => {
-        if (result.value) {
-          return [
-            txCell,
-            result.value.tokenData.name,
-            result.value.tokenData.ticker,
-            item.qty,
-          ];
-        }
 
-        return [txCell, t("pending"), t("pending"), item.qty];
+      //
+      const row = ref([
+        {
+          text: getShortTxid(item.tokenId),
+          url: `/token/${item.tokenId}`,
+          copy: true,
+          tokenIcon: item.tokenId,
+        },
+        t("pending"),
+        t("pending"),
+        item.qty,
+      ]);
+
+      //
+      watch(result, () => {
+        if (result.value !== null) {
+          row.value[1] = result.value.tokenData.name;
+          row.value[2] = result.value.tokenData.ticker;
+        }
       });
-      */
+
+      //
+      return row;
     });
 
     //

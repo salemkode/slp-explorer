@@ -10,7 +10,7 @@
 
 <script lang="ts">
 // Modules
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref, watch } from "vue";
 import { numberWithCommas, getShortTxid } from "@/modules/utilities";
 
 // Components
@@ -23,6 +23,7 @@ import { PropType } from "vue";
 
 // Use
 import { useI18n } from "vue-i18n";
+import { useTx } from "@/use/useTx";
 
 //
 export default defineComponent({
@@ -45,17 +46,35 @@ export default defineComponent({
     });
 
     // TODO: Get more data for tx
-    const txList: table_row[] = props.txs.map((item) => [
-      item.height,
-      {
-        text: getShortTxid(item.txid),
-        url: `/tx/${item.txid}`,
-        copy: true,
-      },
-      t("pending"),
-      t("pending"),
-      t("pending"),
-    ]);
+    const txList: table_row[] = props.txs.map((item) => {
+      const { result } = useTx(item.txid);
+
+      const row: table_row = ref([
+        item.height,
+        {
+          text: getShortTxid(item.txid),
+          url: `/tx/${item.txid}`,
+          copy: true,
+        },
+        t("pending"), // Type of Transactions
+        t("pending"), // Amount of Transactions
+        t("pending"), // Token of Transactions
+      ]);
+
+      watch(result, () => {
+        if (result.value) {
+          row.value[2] = result.value.txData.tokenTxType;
+          row.value[3] = "soon";
+          row.value[4] = {
+            text: result.value.txData.tokenName,
+            tokenIcon: result.value.txData.tokenId,
+            url: "/token/" + result.value.txData.tokenId,
+          };
+        }
+      });
+
+      return row;
+    });
 
     //
     return {

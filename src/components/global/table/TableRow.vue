@@ -1,14 +1,14 @@
 <template>
   <tr>
-    <table-cell v-for="(cell, key) in cells" :key="key" :item="cell" />
+    <table-cell v-for="(cell, key) in cells.value" :key="key" :item="cell" />
   </tr>
 </template>
 
 <script lang="ts">
-import { ComputedRef, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
 // Types
-import { table_cell } from "@/types/table.type";
+import { table_row } from "@/types/table.type";
 import { PropType } from "vue";
 
 // Components
@@ -19,9 +19,12 @@ export default defineComponent({
   name: "TableRow",
   props: {
     cells: {
-      type: Object as PropType<table_cell[] | ComputedRef<table_cell[]>>,
+      type: Object as PropType<table_row>,
+      required: true,
     },
   },
-  components: { TableCell },
+  components: {
+    TableCell,
+  },
 });
 </script>

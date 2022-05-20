@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, toRefs } from "vue";
 import bchaddr from "bchaddrjs-slp";
 
 // Types
@@ -48,7 +48,7 @@ export default defineComponent({
       router.push(bchaddr.toSlpAddress(address));
 
       // Convert Address type
-      const addresses = reactive<table_row[]>([
+      const addresses: table_row[] = toRefs([
         [t("slp_address"), { text: bchaddr.toSlpAddress(address), warp: true }],
         [
           t("cash_address"),

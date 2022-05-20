@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, toRefs } from "vue";
 import bchaddr from "bchaddrjs-slp";
 import { tx_data } from "@/types/fullstack.type";
 
@@ -45,7 +45,7 @@ export default defineComponent({
     const { t } = useI18n();
 
     //
-    const stats = reactive<table_row[]>([
+    const stats: table_row[] = toRefs([
       [t("type"), txData.tokenTxType],
       [t("block"), txData.blockheight],
       [t("timestamp"), new Date(txData.blocktime * 1000).toUTCString()],

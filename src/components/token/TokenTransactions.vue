@@ -28,7 +28,7 @@
 
 <script lang="ts">
 // Modules
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import { numberWithCommas, getShortTxid } from "@/modules/utilities";
 
 // Components
@@ -88,25 +88,22 @@ export default defineComponent({
         copy: true,
       };
 
-      //
-      if ("burned" in tx) {
-        return [
-          txid,
-          "BURN",
-          numberWithCommas(getRealQty(tx.burned)),
-          tx.height,
-          "time soon",
-        ];
-      }
-
-      //
-      return [
+      const row: table_row = ref([
         txid,
         tx.type,
         numberWithCommas(getRealQty(tx.qty)),
         tx.height,
         "time soon",
-      ];
+      ]);
+
+      //
+      if ("burned" in tx) {
+        row.value[1] = "Burn";
+        row.value[3] = numberWithCommas(getRealQty(tx.burned));
+      }
+
+      //
+      return row;
     }
 
     //

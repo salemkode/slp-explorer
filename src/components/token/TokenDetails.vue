@@ -8,7 +8,7 @@
 <script lang="ts">
 import { versionName } from "@/modules/utilities";
 import { token_data } from "@/types/fullstack.type";
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, toRefs } from "vue";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -37,7 +37,7 @@ export default defineComponent({
     const { t } = useI18n();
 
     //
-    const details = reactive<table_row[]>([
+    const details: table_row[] = toRefs([
       [
         t("token_id"),
         {

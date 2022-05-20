@@ -26,7 +26,7 @@
 
 <script lang="ts">
 // Modules
-import { computed, defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive, ref } from "vue";
 import { slice } from "@/modules/utilities";
 
 // Types
@@ -75,7 +75,9 @@ export default defineComponent({
           let firstCell = props.items[0];
 
           //
-          let emptyItem = new Array(firstCell.length).fill("");
+          let emptyItem: table_row = ref(
+            new Array(firstCell.value.length).fill("")
+          );
 
           //
           items[i] = emptyItem;

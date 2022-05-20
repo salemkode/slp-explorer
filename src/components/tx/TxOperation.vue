@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import { numberWithCommas } from "@/modules/utilities";
 import bchaddr from "bchaddrjs-slp";
 
@@ -71,7 +71,7 @@ export default defineComponent({
       if (item.tokenQty) {
         const adderssCell = createSlpAddressCell(item.address);
 
-        inputs.push([numberWithCommas(item.tokenQty), adderssCell]);
+        inputs.push(ref([numberWithCommas(item.tokenQty), adderssCell]));
       }
     });
 
@@ -83,9 +83,9 @@ export default defineComponent({
 
         //
         if (item.tokenQty) {
-          outputs.push([numberWithCommas(item.tokenQty), adderssCell]);
+          outputs.push(ref([numberWithCommas(item.tokenQty), adderssCell]));
         } else if (item.isMintBaton) {
-          outputs.push([t("mint_baton"), adderssCell]);
+          outputs.push(ref([t("mint_baton"), adderssCell]));
         }
       }
     });

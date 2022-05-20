@@ -8,7 +8,7 @@
 <script lang="ts">
 import { numberWithCommas } from "@/modules/utilities";
 import { token_data } from "@/types/fullstack.type";
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, toRefs } from "vue";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -42,7 +42,7 @@ export default defineComponent({
       : "Dead Ended";
 
     //
-    const stats = reactive<table_row[]>([
+    const stats: table_row[] = toRefs([
       [t("block_created"), tokenData.blockCreated],
       [t("minting_baton_status"), mintBatonStatus],
       [t("tokenstats_satoshis_locked_up"), "not found in slp indexer"],

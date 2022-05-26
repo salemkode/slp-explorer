@@ -17,7 +17,7 @@ export function versionName(
 // Add commas to number
 // Ex: 1200050 => '1,200,050'
 export function numberWithCommas(input: number): string {
-  return String(input).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return input + ""; //  String(input).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 // we will be extracting the range of elements from an array without mutating it

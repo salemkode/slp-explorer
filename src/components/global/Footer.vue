@@ -76,6 +76,10 @@ export default defineComponent({
 
     const connectList = [
       {
+        title: "Explorer developer",
+        url: "https://t.me/salemkode",
+      },
+      {
         title: "SimpleLedger Chat",
         url: "https://t.me/simpleledger",
       },

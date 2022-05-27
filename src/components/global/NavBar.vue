@@ -10,7 +10,6 @@
           <li v-for="(router, key) in routers" :key="key" class="nav-item">
             <app-link v-text="$t(key)" :to="router" class="nav-link" />
           </li>
-          <donate-button />
         </ul>
       </div>
     </nav>
@@ -21,17 +20,15 @@
 import { defineComponent } from "vue";
 
 // Components
-import DonateButton from "@/components/global/DonateButton.vue";
 import AppLink from "@/components/global/AppLink.vue";
 import NavSearch from "./search/NavSearch.vue";
 
 //
 export default defineComponent({
-  components: { AppLink, DonateButton, NavSearch },
+  components: { AppLink, NavSearch },
   setup() {
     const routers = {
-      // mainmenu_explorer: "/",
-      // mainmenu_all_tokens: "/alltoken",
+      mainmenu_donate_us: "/donate-us",
     };
 
     //

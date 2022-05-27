@@ -45,9 +45,8 @@
       <article>
         <h3>Why donate to the project ?</h3>
         <p class="py-3 h5">
-          The donation contributes to the development of the explorer and the
-          possibility of completing the development and building an integrated
-          explorer that does not depend on slpdb
+          This contributes to the completion and improvement of the slp explorer
+          build
         </p>
       </article>
       <article>

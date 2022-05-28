@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h2 class="my-5">Help us complete the development of slp explorer</h2>
     <div class="card-body">
       <div class="border d-lg-flex justify-content-center p-4">
         <div class="card border-0 qr-container" @click="copyAddress">
@@ -28,7 +29,7 @@
         <span class="space" />
         <div class="card">
           <i class="fi fi-rr-target h1" />
-          <h3>Target: 10 BCH</h3>
+          <h3>Target: 5 BCH</h3>
         </div>
       </div>
       <div class="status-campagin my-4 d-flex">
@@ -36,12 +37,18 @@
           <div
             class="progress-bar bg-success"
             role="progressbar"
-            :style="{ width: +status.balance * 10 + '%' }"
+            :style="{ width: +status.balance * 20 + '%' }"
           />
         </div>
       </div>
     </div>
     <div class="details m-3">
+      <article>
+        <p class="py-3 h5">
+          This donation will contribute to completing the basic features and
+          displaying all data on the token and address page
+        </p>
+      </article>
       <article>
         <h3>Why donate to the project ?</h3>
         <p class="py-3 h5">

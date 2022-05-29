@@ -1,6 +1,6 @@
 <template>
   <div class="error-container">
-    <img :src="errorImages[error.status]" alt="" />
+    <img :src="errorImages[error.status]" alt="" class="error-image" />
     <h3>{{ error.message }}</h3>
   </div>
 </template>
@@ -38,8 +38,12 @@ export default defineComponent({
 }
 
 .error-container > * {
-  height: 100%;
   padding: 18px;
   text-align: center;
+}
+
+.error-image {
+  max-width: 80%;
+  margin: 10px auto;
 }
 </style>

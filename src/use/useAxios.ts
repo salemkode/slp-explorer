@@ -12,8 +12,16 @@ export function useAxios<T, E>(
   const result = ref<null | T>(null);
   const error = ref<null | AxiosError<E>>(null);
   const loading = ref(true);
+  let _callback: () => void = () => undefined;
 
+  //
+  function onFinished(callback: () => void) {
+    _callback = callback;
+  }
+
+  //
   async function mounted() {
+    //
     try {
       const _result = await instance(url, {
         method: config.method,
@@ -28,8 +36,14 @@ export function useAxios<T, E>(
 
     // Stop loading
     loading.value = false;
+
+    // Run callback
+    _callback();
   }
 
+  //
   mounted();
-  return { result, loading, error };
+
+  //
+  return { result, loading, error, onFinished };
 }

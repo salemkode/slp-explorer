@@ -6,6 +6,7 @@ export interface useAxiosReturn<T, E> {
   result: Ref<UnwrapRef<T> | null>;
   loading: Ref<boolean>;
   error: Ref<null | UnwrapRef<AxiosError<E>>>;
+  onFinished(callback: () => void): void;
 }
 
 //

@@ -30,7 +30,7 @@ export default defineComponent({
 
 <style scoped>
 .error-container {
-  height: 400px;
+  min-height: 400px;
   padding: 20px;
   display: flex;
   flex-direction: column;

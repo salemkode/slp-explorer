@@ -16,8 +16,14 @@ export function versionName(
 
 // Add commas to number
 // Ex: 1200050 => '1,200,050'
-export function numberWithCommas(input: number): string {
-  return input + ""; //  String(input).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export function numberWithCommas(input: string | number): string {
+  const parts = input.toString().split(".");
+
+  //
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  //
+  return parts.join(".");
 }
 
 // we will be extracting the range of elements from an array without mutating it

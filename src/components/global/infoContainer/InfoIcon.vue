@@ -40,7 +40,6 @@ export default defineComponent({
 
     //
     watch(props, () => {
-      console.log("change");
       status.firstError = true;
       status.url = `https://icons.fountainhead.cash/${props.size}/${props.tokenId}.png`;
     });

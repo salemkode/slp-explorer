@@ -22,7 +22,7 @@ export default defineComponent({
       required: true,
     },
     error: {
-      type: Object as PropType<{ status: number; message: string }>,
+      type: Object as PropType<{ statusCode: number; message: string }>,
     },
   },
 });

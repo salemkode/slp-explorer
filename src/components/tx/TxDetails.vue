@@ -6,9 +6,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs } from "vue";
-import bchaddr from "bchaddrjs-slp";
-import { tx_data } from "@/types/fullstack.type";
+import { defineComponent, PropType } from "vue";
+import { tx_data } from "@/types/backend.type";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -24,47 +23,36 @@ export default defineComponent({
   components: { Table },
   name: "TokenDetails",
   props: {
-    txData: {
+    details: {
       required: true,
-      type: Object as PropType<tx_data["txData"]>,
+      type: Object as PropType<tx_data["details"]>,
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
-    //
-    let creator = "";
-
-    const addresses = txData.vout[1].scriptPubKey.addresses;
-    if (addresses) {
-      creator = bchaddr.toSlpAddress(addresses[0]);
-    }
-
     //
     const { t } = useI18n();
 
     //
-    const stats: table_row[] = toRefs([
-      [t("type"), txData.tokenTxType],
-      [t("block"), txData.blockheight],
-      [t("timestamp"), new Date(txData.blocktime * 1000).toUTCString()],
+    const stats: table_row[] = [
+      [t("type"), props.details.type],
+      [t("block"), props.details.block],
+      [t("timestamp"), new Date(props.details.time * 1000).toUTCString()],
       [
         t("txid"),
         {
-          text: txData.txid,
+          text: props.details.txid,
           warp: true,
         },
       ],
       [
         t("creator"),
         {
-          text: creator,
-          url: `/address/${creator}`,
+          text: props.details.creator,
+          url: `/address/${props.details.creator}`,
           warp: true,
         },
       ],
-    ]);
+    ];
 
     //
     return { stats };

@@ -1,33 +1,34 @@
 <template>
   <div class="tabel-container">
-    <div class="table-warp">
-      <table class="table table-striped">
-        <thead v-if="headers">
-          <tr>
-            <td
-              v-for="(header, key) in headers"
+    <Loading :loading="status.loading">
+      <div class="table-warp">
+        <table class="table table-striped">
+          <thead v-if="headers">
+            <tr>
+              <td
+                v-for="(header, key) in headers"
+                :key="key"
+                v-text="header ? $t(header) : ''"
+              />
+            </tr>
+          </thead>
+          <tbody>
+            <table-row
+              v-for="(cells, key) in status.items"
               :key="key"
-              v-text="header ? $t(header) : ''"
+              :cells="cells"
             />
-          </tr>
-        </thead>
-        <tbody>
-          <table-row
-            v-for="(cells, key) in currentPageItems"
-            :key="key"
-            :cells="cells"
-          />
-        </tbody>
-      </table>
-    </div>
-    <pagination-nav :itemsLength="status.allPage" v-model="status.pagination" />
+          </tbody>
+        </table>
+      </div>
+    </Loading>
+    <pagination-nav :itemsLength="pages" @change="onPaginationChange" />
   </div>
 </template>
 
 <script lang="ts">
 // Modules
-import { computed, defineComponent, reactive, ref } from "vue";
-import { slice } from "@/modules/utilities";
+import { defineComponent, reactive } from "vue";
 
 // Types
 import { PropType } from "vue";
@@ -49,49 +50,38 @@ export default defineComponent({
       type: Object as PropType<table_row[]>,
       required: true,
     },
+    pages: {
+      type: Number,
+      required: true,
+    },
+    change: {
+      type: Function as PropType<(index: number) => Promise<table_row[]>>,
+      required: true,
+    },
   },
   setup(props) {
     //
-    const ITEMS_PER_PAGE = 7;
-
-    //
     let status = reactive({
-      pagination: 1,
-      allPage: Math.ceil(props.items.length / ITEMS_PER_PAGE),
+      loading: false,
+      items: props.items,
     });
 
     //
-    const currentPageItems = computed(() => {
-      //
-      const start = (status.pagination - 1) * ITEMS_PER_PAGE;
+    async function onPaginationChange(index: number) {
+      // Start loading
+      status.loading = true;
 
-      //
-      const items = slice(props.items, start, ITEMS_PER_PAGE) as table_row[];
+      // Run change event
+      status.items = await props.change(index);
 
-      // Fill empty item
-      // Make Items length is ITEMS_PER_PAGE
-      for (let i = 0; i < ITEMS_PER_PAGE; i++) {
-        if (!items[i]) {
-          let firstCell = props.items[0];
-
-          //
-          let emptyItem: table_row = ref(
-            new Array(firstCell.value.length).fill("")
-          );
-
-          //
-          items[i] = emptyItem;
-        }
-      }
-
-      //
-      return items;
-    });
+      // Stop loading
+      status.loading = false;
+    }
 
     //
     return {
       status,
-      currentPageItems,
+      onPaginationChange,
     };
   },
 });

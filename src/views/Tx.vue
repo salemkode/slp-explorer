@@ -2,16 +2,16 @@
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="tx-page container">
       <!-- -->
-      <info-container :title="title" :token-id="result.txData.tokenId" />
+      <info-container :title="title" :token-id="result.token.tokenId" />
 
       <!-- -->
       <div class="tables-container">
-        <tx-details :tx-data="result.txData" />
-        <tx-token :tx-data="result.txData" />
+        <tx-details :details="result.details" />
+        <tx-token :token="result.token" />
       </div>
 
       <!--  -->
-      <tx-operation :tx-data="result.txData" />
+      <tx-operation :inputs="result.inputs" :outputs="result.outputs" />
     </div>
   </Loading>
 </template>
@@ -22,7 +22,7 @@ import { computed, defineComponent } from "vue";
 import { useRoute } from "vue-router";
 
 // local modules
-import { useTx } from "@/use/useIndexer";
+import { useTx } from "@/use/useBackend";
 
 // Components
 import InfoContainer from "@/components/global/infoContainer/InfoContainer.vue";
@@ -55,10 +55,10 @@ export default defineComponent({
       if (result.value === null) return "";
 
       // Transction type
-      const txType = result.value.txData.tokenTxType;
+      const txType = result.value.details.type;
 
       // Transction type
-      const ticker = result.value.txData.tokenTicker;
+      const ticker = result.value.token.ticker;
 
       //
       return `${ticker} ${txType} ${t("transaction")}`;

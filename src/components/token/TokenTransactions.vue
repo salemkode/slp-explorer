@@ -1,46 +1,25 @@
 <template>
-  <div class="token-transactions" v-if="tokenData.txs">
-    <h3 class="table-title">
-      {{ $t("transactions") }} ({{ status.transactionsNumber }})
-    </h3>
-    <ul class="nav nav-pills">
-      <li
-        v-for="(txs, key) in status.txs"
-        v-show="txs.length"
-        :key="key"
-        :class="{ active: status.txsMode === key }"
-        class="nav-item nav-link"
-        @click="status.txsMode = key"
-      >
-        {{ key }}
-      </li>
-    </ul>
-    <template v-for="(txs, key) in status.txs" :key="key">
-      <pagination-table
-        v-if="txs && txs.length"
-        v-show="status.txsMode === key"
-        :headers="status.headers"
-        :items="txs"
-      />
-    </template>
+  <div class="token-transactions">
+    <h3 class="table-title">{{ $t("transactions") }} ({{ tx.length }})</h3>
+    <pagination-table
+      :headers="status.headers"
+      :items="status.items"
+      :pages="tx.allPage"
+      :change="changePage"
+    />
   </div>
 </template>
 
 <script lang="ts">
 // Modules
-import { defineComponent, PropType, reactive, ref } from "vue";
-import { numberWithCommas, getShortTxid } from "@/modules/utilities";
+import { defineComponent, PropType, reactive } from "vue";
 
 // Components
 import PaginationTable from "@/components/global/table/PaginationTable.vue";
 
 // Types
-import {
-  token_data,
-  token_data__burn_tx,
-  token_data__tx,
-} from "@/types/fullstack.type";
 import { table_row } from "@/types/table.type";
+import { token_data, token_tx, useTokenReturn } from "@/types/backend.type";
 
 //
 export default defineComponent({
@@ -48,8 +27,12 @@ export default defineComponent({
   // eslint-disable-next-line vue/no-unused-components
   components: { PaginationTable },
   props: {
-    tokenData: {
-      type: Object as PropType<token_data["tokenData"]>,
+    tx: {
+      type: Object as PropType<token_data["tx"]>,
+      required: true,
+    },
+    getTx: {
+      type: Function as PropType<useTokenReturn["getTx"]>,
       required: true,
     },
     decimals: {
@@ -58,92 +41,47 @@ export default defineComponent({
     },
   },
   setup(props) {
-    type txs_modes = "all" | "send" | "mint" | "burn";
-
     /*  */
     let status = reactive({
       headers: ["txid", "type", "amount", "block_height", "block_time"],
-      start: 0,
-      txs: {
-        all: [] as table_row[],
-        send: [] as table_row[],
-        mint: [] as table_row[],
-        burn: [] as table_row[],
-      },
-      txsMode: "all",
-      transactionsNumber: "0",
+      items: [] as table_row[],
     });
 
-    //
-    function getRealQty(qty: string | number): number {
-      if (props.decimals === 0) return +qty;
-      return +qty / props.decimals ** 10;
-    }
-
     // Map txs to [txid, type, qty, height]
-    function txsMap(tx: token_data__tx | token_data__burn_tx) {
-      const txid = {
-        text: getShortTxid(tx.txid),
-        url: `/tx/${tx.txid}`,
-        copy: true,
-      };
-
-      const row: table_row = ref([
-        txid,
+    function mapTxs(tx: token_tx): table_row {
+      //
+      return [
+        {
+          text: tx.txid,
+          copy: tx.txid,
+          url: "/tx/" + tx.txid,
+        },
         tx.type,
-        numberWithCommas(getRealQty(tx.qty)),
-        tx.height,
-        "time soon",
-      ]);
+        tx.qty,
+        tx.block,
+        tx.time,
+      ];
+    }
 
-      //
-      if ("burned" in tx) {
-        row.value[1] = "Burn";
-        row.value[3] = numberWithCommas(getRealQty(tx.burned));
+    //
+    status.items = props.tx.txs.map(mapTxs);
+
+    //
+    async function changePage(index: number) {
+      try {
+        const items: token_data["tx"] = await props.getTx(index);
+
+        //
+        return items.txs.map(mapTxs);
+      } catch (err) {
+        return [];
       }
-
-      //
-      return row;
     }
-
-    //
-    function txsFilter(mode: txs_modes) {
-      return (tx: { type: string }) => {
-        let type = tx.type;
-        if (mode === "all") {
-          return true;
-        } else if (mode === "send") {
-          return type === "SEND";
-        } else if (mode === "mint") {
-          return type === "GENESIS" || type === "MINT";
-        } else if (mode === "burn") {
-          return type === "BURN-UNCONTROLLED" || type === "SEND-BURN";
-        }
-      };
-    }
-
-    //
-    if (Array.isArray(props.tokenData.txs)) {
-      const reverseTxs = Array.from(props.tokenData.txs).reverse();
-
-      // Add array
-      Object.keys(status.txs).forEach((key) => {
-        //
-        let mode = key as txs_modes;
-
-        //
-        status.txs[mode] = Object.values(reverseTxs)
-          .filter(txsFilter(mode))
-          .map(txsMap);
-      });
-    }
-
-    //
-    status.transactionsNumber = numberWithCommas(status.txs.all.length);
 
     //
     return {
       status,
+      changePage,
     };
   },
 });

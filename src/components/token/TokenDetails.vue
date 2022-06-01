@@ -6,15 +6,14 @@
 </template>
 
 <script lang="ts">
-import { versionName } from "@/modules/utilities";
-import { token_data } from "@/types/fullstack.type";
-import { defineComponent, PropType, toRefs } from "vue";
+import { defineComponent, PropType } from "vue";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
 
 // Types
 import { table_row } from "@/types/table.type";
+import { token_data } from "@/types/backend.type";
 
 // Use
 import { useI18n } from "vue-i18n";
@@ -24,51 +23,55 @@ export default defineComponent({
   components: { Table },
   name: "TokenDetails",
   props: {
-    tokenData: {
+    tokenDetails: {
       required: true,
-      type: Object as PropType<token_data["tokenData"]>,
+      type: Object as PropType<token_data["details"]>,
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const tokenData = props.tokenData;
-
     //
     const { t } = useI18n();
 
     //
-    const details: table_row[] = toRefs([
+    const details: table_row[] = [
       [
         t("token_id"),
         {
-          text: tokenData.tokenId,
-          copy: true,
-          url: `/tx/${tokenData.tokenId}`,
+          text: props.tokenDetails.tokenId,
+          copy: props.tokenDetails.tokenId,
+          url: `/tx/${props.tokenDetails.tokenId}`,
           warp: true,
         },
       ],
-      [t("version"), versionName(+tokenData.type)],
-      [t("name"), tokenData.name],
-      [t("symbol"), tokenData.ticker],
-      [t("creator"), "soon"],
-      [t("timestamp"), "soon"],
-      [t("decimals"), tokenData.decimals],
+      [t("version"), props.tokenDetails.type],
+      [t("name"), props.tokenDetails.name],
+      [t("symbol"), props.tokenDetails.ticker],
+      [
+        t("creator"),
+        {
+          text: props.tokenDetails.creator,
+          url: "/address/" + props.tokenDetails.creator,
+          copy: props.tokenDetails.creator,
+        },
+      ],
+      [t("timestamp"), new Date(props.tokenDetails.time * 1000).toUTCString()],
+      [t("decimals"), props.tokenDetails.decimals],
       [
         t("document_uri"),
         {
-          text: tokenData.documentUri,
-          copy: !!tokenData.documentUri,
-          url: tokenData.documentUri !== "none" ? tokenData.documentUri : "",
+          text: props.tokenDetails.documentUri,
+          copy: props.tokenDetails.documentUri,
+          url: props.tokenDetails.documentUri,
         },
       ],
       [
         t("document_checksum"),
         {
-          text: tokenData.documentHash,
+          text: props.tokenDetails.documentHash,
           warp: true,
         },
       ],
-    ]);
+    ];
 
     return { details };
   },

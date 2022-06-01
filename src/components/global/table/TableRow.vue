@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <table-cell v-for="(cell, key) in cells.value" :key="key" :item="cell" />
+    <table-cell v-for="(cell, key) in cells" :key="key" :item="cell" />
   </tr>
 </template>
 

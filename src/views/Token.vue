@@ -2,28 +2,27 @@
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="token-page container">
       <info-container
-        :title="`${result.tokenData.ticker} Token`"
-        :token-id="result.tokenData.tokenId"
-        key="1"
+        :title="`${result.details.ticker} Token`"
+        :token-id="result.details.tokenId"
       />
-      <analytics-container :items="analyticsCardsItem" />
+      <analytics-token :token-stats="result.stats" />
       <div class="tables-container">
-        <token-details :token-data="result.tokenData" />
-        <token-status :token-data="result.tokenData" />
+        <token-details :token-details="result.details" />
+        <token-status :token-stats="result.stats" />
       </div>
 
       <token-transactions
-        :token-data="result.tokenData"
-        :decimals="result.tokenData.decimals"
+        :tx="result.tx"
+        :decimals="result.details.decimals"
+        :get-tx="getTx"
       />
     </div>
   </Loading>
 </template>
 
 <script lang="ts">
-/* eslint-disable vue/no-unused-components */
 // Modules
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
 
 // Use
@@ -31,10 +30,10 @@ import { useToken } from "@/use/useToken";
 
 // Components
 import InfoContainer from "@/components/global/infoContainer/InfoContainer.vue";
-import AnalyticsContainer from "@/components/global/analytics/AnalyticsContainer.vue";
 import TokenDetails from "@/components/token/TokenDetails.vue";
 import TokenStatus from "@/components/token/TokenStats.vue";
 import TokenTransactions from "@/components/token/TokenTransactions.vue";
+import AnalyticsToken from "@/components/token/AnalyticsToken.vue";
 
 //
 export default defineComponent({
@@ -43,7 +42,7 @@ export default defineComponent({
     TokenDetails,
     TokenStatus,
     TokenTransactions,
-    AnalyticsContainer,
+    AnalyticsToken,
   },
   setup() {
     // defined router
@@ -53,38 +52,10 @@ export default defineComponent({
     const tokenId = route.params.tokenid as string;
 
     // Use token data by id
-    const { result, error, loading } = useToken(tokenId);
-
-    //
-    const analyticsCardsItem = computed(() => {
-      const items: Array<{ title: string; value: number | null }> = [];
-
-      if (result.value && result.value.tokenData.txs) {
-        let sendTransaction = result.value.tokenData.txs.filter(
-          (item) => item.type === "SEND"
-        );
-
-        items.push({
-          title: "tokenstats_valid_token_transactions",
-          value: sendTransaction.length,
-        });
-
-        items.push({
-          title: "tokenstats_valid_token_addresses",
-          value: null,
-        });
-
-        items.push({
-          title: "tokenstats_circulating_supply",
-          value: +result.value.tokenData.tokensInCirculationBN,
-        });
-      }
-
-      return items;
-    });
+    const { result, error, loading, getTx } = useToken(tokenId);
 
     // Display data in html
-    return { result, error, loading, analyticsCardsItem };
+    return { result, error, loading, getTx };
   },
 });
 </script>

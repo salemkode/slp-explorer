@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { versionName } from "@/modules/utilities";
-import { tx_data } from "@/types/fullstack.type";
-import { defineComponent, PropType, toRefs } from "vue";
+import { tx_data } from "@/types/backend.type";
+import { defineComponent, PropType } from "vue";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -24,50 +24,46 @@ export default defineComponent({
   components: { Table },
   name: "TokenDetails",
   props: {
-    txData: {
+    token: {
       required: true,
-      type: Object as PropType<tx_data["txData"]>,
+      type: Object as PropType<tx_data["token"]>,
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
     //
     const { t } = useI18n();
 
     //
-    const details: table_row[] = toRefs([
+    const details: table_row[] = [
       [
         t("token_id"),
         {
-          text: txData.tokenId,
-          copy: true,
-          url: `/token/${txData.tokenId}`,
+          text: props.token.tokenId,
+          copy: props.token.tokenId,
+          url: `/token/${props.token.tokenId}`,
           warp: true,
         },
       ],
-      [t("version"), versionName(+txData.tokenType)],
-      [t("name"), txData.tokenName],
-      [t("symbol"), txData.tokenTicker],
-      [t("timestamp"), "soon"],
-      [t("decimals"), txData.tokenDecimals],
+      [t("version"), versionName(+props.token.type)],
+      [t("name"), props.token.name],
+      [t("symbol"), props.token.ticker],
+      [t("decimals"), props.token.decimals],
       [
         t("document_uri"),
         {
-          text: txData.tokenUri,
-          copy: !!txData.tokenUri,
-          url: txData.tokenUri,
+          text: props.token.documentUri,
+          copy: props.token.documentUri,
+          url: props.token.documentUri,
         },
       ],
       [
         t("document_checksum"),
         {
-          text: txData.tokenDocHash,
+          text: props.token.documentHash,
           warp: true,
         },
       ],
-    ]);
+    ];
 
     return { details };
   },

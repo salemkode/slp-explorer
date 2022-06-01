@@ -1,12 +1,10 @@
-import { Ref } from "vue";
-
 //
 type table_cell__text = string | number;
 
 //
 interface table_cell__object {
   text: string;
-  copy?: boolean;
+  copy?: string;
   url?: string;
   tokenIcon?: string;
   warp?: boolean;
@@ -16,4 +14,4 @@ interface table_cell__object {
 export type table_cell = table_cell__object | table_cell__text;
 
 //
-export type table_row = Ref<table_cell[]>;
+export type table_row = table_cell[];

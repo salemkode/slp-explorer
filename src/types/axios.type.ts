@@ -8,9 +8,3 @@ export interface useAxiosReturn<T, E> {
   error: Ref<null | UnwrapRef<AxiosError<E>>>;
   onFinished(callback: () => void): void;
 }
-
-//
-export interface useAxiosConfig {
-  method: "get" | "delete" | "post" | "put";
-  body?: unknown;
-}

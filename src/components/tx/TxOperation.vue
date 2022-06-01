@@ -4,21 +4,20 @@
       <h3 class="table-title" v-text="$t('inputs')" />
       <Table
         :headers="headers"
-        :items="inputs"
+        :items="status.inputs"
         :empty-message="$t('no_inputs')"
       />
     </div>
     <div class="tx-outputs">
       <h3 class="table-title" v-text="$t('outputs')" />
-      <Table :headers="headers" :items="outputs" />
+      <Table :headers="headers" :items="status.outputs" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive } from "vue";
 import { numberWithCommas } from "@/modules/utilities";
-import bchaddr from "bchaddrjs-slp";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -29,22 +28,23 @@ import { useI18n } from "vue-i18n";
 // Types
 import { PropType } from "vue";
 import { table_row } from "@/types/table.type";
-import { tx_data } from "@/types/fullstack.type";
+import { tx_data } from "@/types/backend.type";
 
 //
 export default defineComponent({
   name: "TokenInput",
   components: { Table },
   props: {
-    txData: {
+    inputs: {
       required: true,
-      type: Object as PropType<tx_data["txData"]>,
+      type: Object as PropType<tx_data["inputs"]>,
+    },
+    outputs: {
+      required: true,
+      type: Object as PropType<tx_data["outputs"]>,
     },
   },
   setup(props) {
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const txData = props.txData;
-
     //
     const { t } = useI18n();
 
@@ -52,45 +52,42 @@ export default defineComponent({
     const headers = ["amount", "address"];
 
     //
-    const inputs = reactive<table_row[]>([]);
-    const outputs = reactive<table_row[]>([]);
+    const status = reactive({
+      inputs: [] as table_row[],
+      outputs: [] as table_row[],
+    });
 
     //
     function createSlpAddressCell(address: string) {
-      const slpAddress = bchaddr.toSlpAddress(address);
-
       return {
-        text: slpAddress,
-        url: "/address/" + slpAddress,
+        text: address,
+        url: "/address/" + address,
         warp: true,
       };
     }
 
     //
-    txData.vin.forEach((item) => {
-      if (item.tokenQty) {
+    props.inputs.forEach((item) => {
+      if (item.qty) {
         const adderssCell = createSlpAddressCell(item.address);
 
-        inputs.push(ref([numberWithCommas(item.tokenQty), adderssCell]));
+        status.inputs.push([numberWithCommas(+item.qty), adderssCell]);
       }
     });
 
     //
-    txData.vout.forEach((item) => {
-      const addresses = item.scriptPubKey.addresses;
-      if (addresses) {
-        const adderssCell = createSlpAddressCell(addresses[0]);
+    props.outputs.forEach((item) => {
+      const adderssCell = createSlpAddressCell(item.address);
 
-        //
-        if (item.tokenQty) {
-          outputs.push(ref([numberWithCommas(item.tokenQty), adderssCell]));
-        } else if (item.isMintBaton) {
-          outputs.push(ref([t("mint_baton"), adderssCell]));
-        }
+      //
+      if (item.mint_baton) {
+        status.outputs.push([t("mint_baton"), adderssCell]);
+      } else {
+        status.outputs.push([numberWithCommas(+item.qty), adderssCell]);
       }
     });
 
-    return { inputs, outputs, headers };
+    return { status, headers };
   },
 });
 </script>

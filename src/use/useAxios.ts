@@ -1,10 +1,10 @@
-import axios, { AxiosError, AxiosInstance } from "axios";
-import { useAxiosConfig, useAxiosReturn } from "@/types/axios.type";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
+import { useAxiosReturn } from "@/types/axios.type";
 import { ref, UnwrapRef } from "vue";
 
 export function useAxios<T, E>(
   url: string,
-  config: useAxiosConfig = {
+  config: AxiosRequestConfig<unknown> = {
     method: "get",
   },
   instance: AxiosInstance = axios.create()
@@ -25,7 +25,7 @@ export function useAxios<T, E>(
     try {
       const _result = await instance(url, {
         method: config.method,
-        data: config.body,
+        data: config.data,
       });
 
       // Set data done without error

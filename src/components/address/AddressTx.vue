@@ -2,85 +2,100 @@
   <div class="address-token-balances" v-if="txList.length">
     <h3 class="table-title">
       {{ $t("transactions") }}
-      ({{ numberWithCommas(txList.length) }})
+      ({{ numberWithCommas(transaction.length) }})
     </h3>
-    <pagination-table :headers="status.headers" :items="txList" />
+    <pagination-table
+      :headers="status.headers"
+      :items="txList"
+      :change="changePage"
+      :pages="transaction.allPage"
+    />
   </div>
 </template>
 
 <script lang="ts">
 // Modules
-import { defineComponent, reactive, ref, watch } from "vue";
+import { defineComponent, reactive } from "vue";
 import { numberWithCommas, getShortTxid } from "@/modules/utilities";
 
 // Components
 import PaginationTable from "@/components/global/table/PaginationTable.vue";
 
 // Types
-import { address_data } from "@/types/fullstack.type";
+import { address_data, useAddressReturn } from "@/types/backend.type";
 import { table_row } from "@/types/table.type";
 import { PropType } from "vue";
-
-// Use
-import { useI18n } from "vue-i18n";
-import { useTx } from "@/use/useTx";
 
 //
 export default defineComponent({
   name: "AddressTx",
   components: { PaginationTable },
   props: {
-    txs: {
+    transaction: {
       required: true,
-      type: Object as PropType<address_data["balance"]["txs"]>,
+      type: Object as PropType<address_data["transaction"]>,
+    },
+    getTransaction: {
+      required: true,
+      type: Function as PropType<useAddressReturn["getTransaction"]>,
     },
   },
   setup(props) {
-    //
-    const { t } = useI18n();
-
     //
     let status = reactive({
       headers: ["block", "txid", "type", "amount", "token"],
       tokenNumber: "0",
     });
 
-    // TODO: Get more data for tx
-    const txList: table_row[] = props.txs.map((item) => {
-      const { result } = useTx(item.txid);
-
-      const row: table_row = ref([
-        item.height,
+    //
+    function mapTransaction(
+      item: address_data["transaction"]["transactions"][0]
+    ): table_row {
+      //
+      const row: table_row = [
+        item.block,
         {
           text: getShortTxid(item.txid),
           url: `/tx/${item.txid}`,
-          copy: true,
+          copy: item.txid,
         },
-        t("pending"), // Type of Transactions
-        t("pending"), // Amount of Transactions
-        t("pending"), // Token of Transactions
-      ]);
-
-      watch(result, () => {
-        if (result.value) {
-          row.value[2] = result.value.txData.tokenTxType;
-          row.value[3] = "soon";
-          row.value[4] = {
-            text: result.value.txData.tokenName,
-            tokenIcon: result.value.txData.tokenId,
-            url: "/token/" + result.value.txData.tokenId,
-          };
-        }
-      });
-
+        item.type,
+        item.qty,
+        {
+          text: item.tokenName,
+          tokenIcon: item.tokenId,
+          url: "/token/" + item.tokenId,
+        },
+      ];
+      //
       return row;
-    });
+    }
+
+    //
+    const txList: table_row[] =
+      props.transaction.transactions.map(mapTransaction);
+
+    //
+    async function changePage(index: number) {
+      try {
+        const items: address_data["transaction"] = await props.getTransaction(
+          index
+        );
+
+        //
+        return items.transactions.map(mapTransaction);
+      } catch (err) {
+        console.error(index, err);
+        return [];
+      }
+    }
 
     //
     return {
       status,
-      numberWithCommas,
       txList,
+      changePage,
+      numberWithCommas,
     };
   },
 });

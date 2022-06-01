@@ -1,29 +1,31 @@
-import { computed } from "vue";
-import { instance, handleError } from "@/use/useIndexer";
+import { instance, handleError } from "@/use/useBackend";
 import { useAxios } from "./useAxios";
-import {
-  tx_data,
-  fullstack_error,
-  useTokenReturn,
-  useIndexerError,
-} from "@/types/fullstack.type";
+import { tx_data, backend_error, useTxReturn } from "@/types/backend.type";
+import { ref } from "vue";
 
 //
-export function useTx(txid: string): useTokenReturn<tx_data, useIndexerError> {
-  const { result, loading, error } = useAxios<tx_data, fullstack_error>(
-    "txid",
-    { body: { txid }, method: "post" },
-    instance
-  );
+export function useTx(txid: string): useTxReturn {
+  const encodeTxid = encodeURIComponent(txid);
 
-  const formatedError = computed(() => {
+  //
+  const { result, loading, error, onFinished } = useAxios<
+    tx_data,
+    backend_error
+  >(`/tx/${encodeTxid}`, {}, instance);
+
+  //
+  const formatedError = ref<null | backend_error>(null);
+
+  //
+  onFinished(() => {
     if (error.value === null) {
       return error.value;
     }
 
     // Check if error from axios
-    return handleError(error.value);
+    formatedError.value = handleError(error.value);
   });
 
+  //
   return { result, loading, error: formatedError };
 }

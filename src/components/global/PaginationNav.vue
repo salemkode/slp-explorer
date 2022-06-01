@@ -75,8 +75,13 @@ export default defineComponent({
 
     //
     function changePage(number: number) {
+      const index = number - 1;
+
+      //
       status.selectPage = number;
-      context.emit("update:modelValue", number);
+
+      //
+      context.emit("change", index);
     }
 
     return { status, startPage, changePage };

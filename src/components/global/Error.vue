@@ -1,6 +1,6 @@
 <template>
   <div class="error-container">
-    <img :src="errorImages[error.status]" alt="" class="error-image" />
+    <img :src="errorImages[error.statusCode]" alt="" class="error-image" />
     <h3>{{ error.message }}</h3>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   props: {
     error: {
-      type: Object as PropType<{ status: number; message: string }>,
+      type: Object as PropType<{ statusCode: number; message: string }>,
       required: true,
     },
   },

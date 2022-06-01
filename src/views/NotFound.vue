@@ -1,5 +1,5 @@
 <template>
-  <Error :error="{ status: 404, message: 'Page not founded' }" />
+  <Error :error="{ statusCode: 404, message: 'Page not founded' }" />
 </template>
 
 <script lang="ts">

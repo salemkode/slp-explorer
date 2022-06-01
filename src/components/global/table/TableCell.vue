@@ -4,7 +4,7 @@
       v-if="typeof item == 'object'"
       class="d-flex align-items-center"
       :class="{ 'word-brack-all': item.warp }"
-      :text="item.copy ? item.text : ''"
+      :text="item.copy"
     >
       <info-icon v-if="item.tokenIcon" :tokenId="item.tokenIcon" :size="32" />
       <app-link v-if="item.url" :to="item.url" v-text="item.text" />

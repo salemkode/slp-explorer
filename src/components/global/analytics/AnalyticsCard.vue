@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <header v-text="$t(title)" />
-      <span v-text="value ? numberWithCommas(value) : '---,---'" />
+      <span v-text="value ? numberWithCommas(value) : '--- soon ---'" />
     </div>
   </div>
 </template>

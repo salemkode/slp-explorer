@@ -17,7 +17,7 @@
           />
         </div>
       </div>
-      <analytics-container v-show="false" :items="analyticsCardsItem" />
+      <analytics-container :items="analyticsCardsItem" />
     </div>
   </div>
 </template>

@@ -29,7 +29,7 @@
         <span class="space" />
         <div class="card">
           <i class="fi fi-rr-target h1" />
-          <h3>Target: 5 BCH</h3>
+          <h3>Target: 10 BCH</h3>
         </div>
       </div>
       <div class="status-campagin my-4 d-flex">
@@ -37,7 +37,7 @@
           <div
             class="progress-bar bg-success"
             role="progressbar"
-            :style="{ width: +status.balance * 20 + '%' }"
+            :style="{ width: +status.balance * 10 + '%' }"
           />
         </div>
       </div>

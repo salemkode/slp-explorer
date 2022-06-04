@@ -7,7 +7,11 @@
       :text="item.copy"
     >
       <info-icon v-if="item.tokenIcon" :tokenId="item.tokenIcon" :size="32" />
-      <app-link v-if="item.url" :to="item.url" v-text="item.text" />
+      <app-link
+        v-if="item.url && isLink(item.url)"
+        :to="item.url"
+        v-text="item.text"
+      />
       <span v-else> {{ item.text }} </span>
     </Copy>
 
@@ -42,6 +46,11 @@ export default defineComponent({
     item: {
       type: [String, Number, Object] as PropType<table_cell>,
       required: true,
+    },
+  },
+  methods: {
+    isLink(url: string) {
+      return url.startsWith("https://") || url.startsWith("http://");
     },
   },
 });

@@ -1,6 +1,8 @@
 <template>
   <div class="token-transactions">
-    <h3 class="table-title">{{ $t("transactions") }} ({{ tx.length }})</h3>
+    <h3 class="table-title">
+      {{ $t("transactions") }} ({{ numberWithCommas(tx.length) }})
+    </h3>
     <pagination-table
       :headers="status.headers"
       :items="status.items"
@@ -13,6 +15,7 @@
 <script lang="ts">
 // Modules
 import { defineComponent, PropType, reactive } from "vue";
+import { numberWithCommas } from "@/modules/utilities";
 
 // Components
 import PaginationTable from "@/components/global/table/PaginationTable.vue";
@@ -81,6 +84,7 @@ export default defineComponent({
     //
     return {
       status,
+      numberWithCommas,
       changePage,
     };
   },

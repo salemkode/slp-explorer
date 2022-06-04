@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import { numberWithCommas } from "@/modules/utilities";
 
 export default defineComponent({
   name: "AnalyticsCard",
   props: {
     title: String,
-    value: Number,
+    value: Number as PropType<number | null>,
   },
   setup() {
     return {

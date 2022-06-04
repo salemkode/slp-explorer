@@ -36,7 +36,7 @@ export default defineComponent({
       },
       {
         title: "tokenstats_circulating_supply",
-        value: props.tokenStats.tokensInCirculation,
+        value: +props.tokenStats.tokensInCirculation,
       },
     ]);
 

@@ -38,10 +38,6 @@ export default defineComponent({
       type: Function as PropType<useTokenReturn["getTx"]>,
       required: true,
     },
-    decimals: {
-      type: Number,
-      required: true,
-    },
   },
   setup(props) {
     /*  */

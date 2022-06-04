@@ -11,11 +11,7 @@
         <token-status :token-stats="result.stats" />
       </div>
 
-      <token-transactions
-        :tx="result.tx"
-        :decimals="result.details.decimals"
-        :get-tx="getTx"
-      />
+      <token-transactions :tx="result.tx" :get-tx="getTx" />
     </div>
   </Loading>
 </template>

@@ -54,6 +54,10 @@ export default defineComponent({
         url: "https://github.com/salemkode/slp-explorer",
       },
       {
+        title: "SLP Explorer backend",
+        url: "https://github.com/salemkode/slp-explorer-backend",
+      },
+      {
         title: "SLP indexer",
         url: "https://github.com/Permissionless-Software-Foundation/psf-slp-indexer",
       },

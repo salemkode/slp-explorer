@@ -48,5 +48,22 @@ export function useToken(tokenId: string): useTokenReturn {
   }
 
   //
-  return { result, loading, error: formatedError, getTx };
+  async function getNft(index: number): Promise<token_data["nft"]> {
+    if (result.value === null) {
+      throw "Wait to load address";
+    }
+
+    if (result.value.nft.allPage > index) {
+      const result = await instance.get<token_data["nft"]>(
+        `/token/${encodetokenId}/nft/${index}`
+      );
+
+      return result.data;
+    } else {
+      throw "this index is Incorrect";
+    }
+  }
+
+  //
+  return { result, loading, error: formatedError, getTx, getNft };
 }

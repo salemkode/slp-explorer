@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, toRef } from "vue";
 
 // Components
 import Table from "@/components/global/table/Table.vue";
@@ -72,6 +72,21 @@ export default defineComponent({
         },
       ],
     ];
+
+    // Get parent of nft child
+    const parentGroupId = toRef(props.tokenDetails, "parentGroupId");
+
+    //
+    if (parentGroupId.value) {
+      details.push([
+        t("nft1_group"),
+        {
+          text: parentGroupId.value,
+          url: `/token/${parentGroupId.value}`,
+          copy: parentGroupId.value,
+        },
+      ]);
+    }
 
     return { details };
   },

@@ -11,7 +11,11 @@
         <token-status :token-stats="result.stats" />
       </div>
 
+      <!-- Show all token transctions -->
       <token-transactions :tx="result.tx" :get-tx="getTx" />
+
+      <!-- Show all token nfts -->
+      <token-nfts v-if="result.nft" :nft="result.nft" :get-nft="getNft" />
     </div>
   </Loading>
 </template>
@@ -30,6 +34,7 @@ import TokenDetails from "@/components/token/TokenDetails.vue";
 import TokenStatus from "@/components/token/TokenStats.vue";
 import TokenTransactions from "@/components/token/TokenTransactions.vue";
 import AnalyticsToken from "@/components/token/AnalyticsToken.vue";
+import TokenNfts from "@/components/token/TokenNfts.vue";
 
 //
 export default defineComponent({
@@ -39,6 +44,7 @@ export default defineComponent({
     TokenStatus,
     TokenTransactions,
     AnalyticsToken,
+    TokenNfts,
   },
   setup() {
     // defined router
@@ -48,10 +54,10 @@ export default defineComponent({
     const tokenId = route.params.tokenid as string;
 
     // Use token data by id
-    const { result, error, loading, getTx } = useToken(tokenId);
+    const { result, error, loading, getTx, getNft } = useToken(tokenId);
 
     // Display data in html
-    return { result, error, loading, getTx };
+    return { result, error, loading, getTx, getNft };
   },
 });
 </script>

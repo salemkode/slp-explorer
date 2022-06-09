@@ -23,6 +23,7 @@ export interface token_data {
     decimals: number;
     documentUri: string;
     documentHash: string;
+    parentGroupId?: string;
   };
   stats: {
     block: number;
@@ -38,6 +39,12 @@ export interface token_data {
     allPage: number;
     currentPage: number;
     txs: token_tx[];
+  };
+  nft: {
+    length: number;
+    allPage: number;
+    currentPage: number;
+    nfts: string[];
   };
 }
 
@@ -124,6 +131,7 @@ export type useTxReturn = useBackendReturn<tx_data, backend_error>;
 export interface useTokenReturn
   extends useBackendReturn<token_data, backend_error> {
   getTx(index: number): Promise<token_data["tx"]>;
+  getNft(index: number): Promise<token_data["nft"]>;
 }
 export interface useAddressReturn
   extends useBackendReturn<address_data, backend_error> {

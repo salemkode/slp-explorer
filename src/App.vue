@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="page">
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }" :key="$route.fullPath">
       <transition mode="out-in" name="fade">
         <component :is="Component" />
       </transition>

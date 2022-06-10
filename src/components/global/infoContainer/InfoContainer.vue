@@ -1,6 +1,6 @@
 <template>
   <div class="align-items-center d-flex flex-column flex-md-row my-3 py-3">
-    <InfoIcon :address="address" :tokenId="tokenId" />
+    <InfoIcon :address="address" :tokenId="tokenId" :parentId="parentId" />
     <div class="px-2 word-brack-all w-100">
       <h3 v-text="title" />
       <Copy :text="tokenId || address">
@@ -32,6 +32,9 @@ export default defineComponent({
     address: {
       type: String,
       default: "",
+    },
+    parentId: {
+      type: String,
     },
   },
   setup(props, context) {

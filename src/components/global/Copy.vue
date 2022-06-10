@@ -19,7 +19,6 @@ export default defineComponent({
   props: {
     text: {
       type: String,
-      required: true,
     },
   },
   setup(props) {
@@ -31,15 +30,17 @@ export default defineComponent({
 
     //
     function copyText() {
-      copy(props.text);
+      if (props.text) {
+        copy(props.text);
 
-      //
-      showPopup.value = true;
+        //
+        showPopup.value = true;
 
-      //
-      setTimeout(() => {
-        showPopup.value = false;
-      }, 2000);
+        //
+        setTimeout(() => {
+          showPopup.value = false;
+        }, 2000);
+      }
     }
 
     //

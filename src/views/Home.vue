@@ -3,6 +3,7 @@
     <Hero />
     <div class="helper-info container">
       <h2 class="mb-3">Explorer pages</h2>
+      <br />
       <div v-for="(item, key) in infoUrls" :key="key" class="my-4">
         <h3>{{ key }} Page</h3>
         <div>

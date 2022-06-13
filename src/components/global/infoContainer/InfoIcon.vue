@@ -1,52 +1,46 @@
 <template>
-  <div class="icon" :style="{ '--icon-size': size + 'px' }">
-    <QrcodeVue v-if="address" :size="size" :value="address" />
-    <div class="token-icon" v-else>
-      <div v-if="status.loading" class="loading" role="status" />
-      <img
-        v-if="status.imgReady"
-        v-show="!status.loading"
-        :src="tokenUrl"
-        :key="tokenUrl"
-        @load="imageLoadDone"
-        @error="imageLoadError"
-      />
-    </div>
+  <div class="icon my-1" :style="`--icon-size: ${iconSize}`">
+    <div v-if="status.loading" class="loading" role="status" />
+    <img
+      v-show="!status.loading"
+      :src="status.imageUrl"
+      :key="status.imageUrl"
+      @load="imageLoadDone"
+      @error="imageLoadError"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive } from "vue";
+import { defineComponent, reactive, computed } from "vue";
 import { toSvg } from "jdenticon";
 
-// Components
-import QrcodeVue from "qrcode.vue";
-import { computed } from "@vue/reactivity";
+// Types
+import { PropType } from "vue";
 
 //
 export default defineComponent({
   name: "InfoIcon",
   props: {
-    tokenId: String,
-    parentId: String,
-    address: {
+    tokenId: {},
+    url: {
       type: String,
       default: "",
     },
     size: {
-      type: Number as PropType<128 | 64 | 32>,
+      type: Number as PropType<128 | 64 | 32 | 0>,
       default: 128,
     },
   },
-  components: { QrcodeVue },
   setup(props, context) {
     let status = reactive({
       loading: true,
       error: false,
-      imgReady: false,
-      iconRepo: "",
+      iconSize: "",
+      imageUrl: props.url,
     });
 
+    /*
     //
     onMounted(async () => {
       //
@@ -85,7 +79,7 @@ export default defineComponent({
       // Convert svg to base64
       return "data:image/svg+xml;base64," + btoa(svgString);
     });
-
+*/
     //
     function imageLoadError() {
       // Check from handling status
@@ -94,8 +88,14 @@ export default defineComponent({
         return;
       }
 
-      // change value of first error
+      // Change error state
       status.error = true;
+
+      // Create svg icon for token
+      let svgString = toSvg(props.tokenId, props.size);
+
+      // Convert svg to base64
+      status.imageUrl = "data:image/svg+xml;base64," + btoa(svgString);
     }
 
     //
@@ -107,15 +107,26 @@ export default defineComponent({
     }
 
     //
-    return { imageLoadError, imageLoadDone, status, tokenUrl };
+    const iconSize = computed(() =>
+      props.size === 0 ? "80%" : `${props.size}px`
+    );
+
+    //
+    return { imageLoadError, imageLoadDone, iconSize, status };
   },
 });
 </script>
 
 <style scoped>
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .icon > * {
-  width: var(--icon-size);
-  height: var(--icon-size);
+  max-width: var(--icon-size);
+  max-height: var(--icon-size);
 }
 
 .icon .loading {

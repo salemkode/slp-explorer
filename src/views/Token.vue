@@ -4,7 +4,7 @@
       <info-container
         :title="`${result.details.ticker} Token`"
         :token-id="result.details.tokenId"
-        :parent-id="result.details.parentGroupId"
+        :document-uri="result.details.documentUri"
       />
       <analytics-token :token-stats="result.stats" />
       <div class="tables-container">

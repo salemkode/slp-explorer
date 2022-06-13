@@ -2,7 +2,11 @@
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="tx-page container">
       <!-- -->
-      <info-container :title="title" :token-id="result.token.tokenId" />
+      <info-container
+        :title="title"
+        :token-id="result.token.tokenId"
+        :document-uri="result.token.documentUri"
+      />
 
       <!-- -->
       <div class="tables-container">

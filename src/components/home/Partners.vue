@@ -27,6 +27,10 @@ export default defineComponent({
         image: "/image/partners/fullstack.png",
         url: "https://fullstack.cash",
       },
+      {
+        image: "/image/partners/arquebus.png",
+        url: "https://arquebus.io/",
+      },
     ];
 
     return { partners };

@@ -2,7 +2,7 @@
   <Loading :loading="loading" :error="error">
     <div v-if="result" class="token-page container">
       <info-container
-        :title="`${result.details.ticker} Token`"
+        :title="`${result.details.ticker} ${$t(SLP_Type_Name)}`"
         :token-id="result.details.tokenId"
         :document-uri="result.details.documentUri"
       />
@@ -23,7 +23,7 @@
 
 <script lang="ts">
 // Modules
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
 
 // Use
@@ -57,8 +57,17 @@ export default defineComponent({
     // Use token data by id
     const { result, error, loading, getTx, getNft } = useToken(tokenId);
 
+    // Type NFT or Token
+    const SLP_Type_Name = computed<"nft" | "token">(() => {
+      if (result.value?.details.type === "nft1_child") {
+        return "nft";
+      }
+
+      return "token";
+    });
+
     // Display data in html
-    return { result, error, loading, getTx, getNft };
+    return { result, error, loading, getTx, getNft, SLP_Type_Name };
   },
 });
 </script>

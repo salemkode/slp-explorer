@@ -34,6 +34,7 @@ export default defineComponent({
     //
     function searchMethod() {
       search(searchWord.value);
+      searchWord.value = "";
     }
 
     //

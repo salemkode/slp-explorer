@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 //
 import useSearch from "@/use/useSearch";
@@ -17,9 +17,18 @@ import useSearch from "@/use/useSearch";
 //
 export default defineComponent({
   name: "InputSearch",
-  setup() {
+  props: {
+    modelValue: {
+      type: String,
+      default: "",
+    },
+  },
+  setup(props) {
     //
     const searchWord = ref("");
+
+    //
+    watch(props, () => (searchWord.value = props.modelValue));
 
     //
     const { search } = useSearch();
@@ -28,6 +37,7 @@ export default defineComponent({
     function inputEvent(event: KeyboardEvent) {
       if (event.key === "Enter") {
         search(searchWord.value);
+        searchWord.value = "";
       }
     }
 

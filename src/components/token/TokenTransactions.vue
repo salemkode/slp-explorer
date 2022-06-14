@@ -58,7 +58,7 @@ export default defineComponent({
         tx.type,
         tx.qty,
         tx.block,
-        tx.time,
+        new Date(tx.time * 1000).toUTCString(),
       ];
     }
 

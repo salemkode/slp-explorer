@@ -1,5 +1,5 @@
 <template>
-  <transition name="slider">
+  <transition v-if="openFromOtherHomePage" name="slider">
     <div v-if="!route.meta.removeNavBar" class="search-bar">
       <i class="fi fi-rr-search px-3" @click="searchMethod" />
       <input-search v-model="searchWord" />
@@ -15,7 +15,7 @@ import useSearch from "@/use/useSearch";
 
 // Components
 import InputSearch from "@/components/global/search/InputSearch.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 //
 export default defineComponent({
@@ -24,6 +24,20 @@ export default defineComponent({
   setup() {
     //
     const route = useRoute();
+    const router = useRouter();
+
+    //
+    const openFromOtherHomePage = ref(true);
+
+    //
+    router.beforeEach((to, from) => {
+      if (to.fullPath === "/" && from.fullPath === "/") {
+        // On first open home page
+        openFromOtherHomePage.value = false;
+      } else {
+        openFromOtherHomePage.value = true;
+      }
+    });
 
     //
     let { search } = useSearch();
@@ -38,7 +52,7 @@ export default defineComponent({
     }
 
     //
-    return { searchWord, searchMethod, route };
+    return { searchWord, openFromOtherHomePage, searchMethod, route };
   },
 });
 </script>

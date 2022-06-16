@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  RouteRecordRaw,
+  onBeforeRouteUpdate,
+} from "vue-router";
 
 // Page
 import Home from "../views/Home.vue";
@@ -13,7 +18,7 @@ import NotFoundPage from "../views/NotFound.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "Home page",
+    name: "SLP explorer",
     component: Home,
     meta: {
       removeNavBar: true,
@@ -50,6 +55,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   linkActiveClass: "active",
+});
+
+router.beforeEach((to) => {
+  scrollTo(0, 0);
+  document.title = (to.name as string) || "SLP explorer";
 });
 
 export default router;

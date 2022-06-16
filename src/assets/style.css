@@ -6,6 +6,9 @@
 }
 
 /* Reset */
+* {
+  scroll-behavior: smooth;
+}
 
 i.fi {
   display: inline-flex;

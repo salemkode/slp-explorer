@@ -23,7 +23,7 @@
 
 <script lang="ts">
 // Modules
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 
 // Use
@@ -56,6 +56,13 @@ export default defineComponent({
 
     // Use token data by id
     const { result, error, loading, getTx, getNft } = useToken(tokenId);
+
+    // Change page title
+    watch(result, () => {
+      if (result.value) {
+        document.title = `${result.value.details.name} - Token Page`;
+      }
+    });
 
     // Type NFT or Token
     const SLP_Type_Name = computed<"nft" | "token">(() => {

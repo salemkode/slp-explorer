@@ -21,7 +21,7 @@ import { defineComponent } from "vue";
 
 // Components
 import AppLink from "@/components/global/AppLink.vue";
-import NavSearch from "./search/NavSearch.vue";
+import NavSearch from "@/components/global/search/NavSearch.vue";
 
 //
 export default defineComponent({

@@ -3,6 +3,10 @@ import { useAxiosReturn } from "@/types/axios.type";
 import { AxiosError } from "axios";
 import { UnwrapRef, Ref } from "vue";
 
+//
+export type tokenTypeName = "type1" | "nft1_group" | "nft1_child" | "unknown"
+
+//
 export type token_tx = {
   txid: string;
   type: string;
@@ -15,7 +19,7 @@ export type token_tx = {
 export interface token_data {
   details: {
     tokenId: string;
-    type: "type1" | "nft1_group" | "nft1_child" | "unknown";
+    type: tokenTypeName;
     name: string;
     ticker: string;
     creator: string;
@@ -58,7 +62,7 @@ export interface tx_data {
     creator: string;
   };
   token: {
-    type: number;
+    type: tokenTypeName;
     ticker: string;
     name: string;
     tokenId: string;

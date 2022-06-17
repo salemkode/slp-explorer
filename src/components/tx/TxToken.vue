@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts">
-import { versionName } from "@/modules/utilities";
 import { tx_data } from "@/types/backend.type";
 import { defineComponent, PropType } from "vue";
 
@@ -44,7 +43,7 @@ export default defineComponent({
           warp: true,
         },
       ],
-      [t("version"), versionName(+props.token.type)],
+      [t("version"), props.token.type],
       [t("name"), props.token.name],
       [t("symbol"), props.token.ticker],
       [t("decimals"), props.token.decimals],

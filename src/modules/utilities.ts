@@ -1,19 +1,3 @@
-// Get version name from number are get from slp indexer
-export function versionName(
-  versionNumber: number
-): "type1" | "nft1_group" | "nft1_child" | "unknown" {
-  switch (versionNumber) {
-    case 1:
-      return "type1";
-    case 129:
-      return "nft1_group";
-    case 65:
-      return "nft1_child";
-    default:
-      return "unknown";
-  }
-}
-
 // Add commas to number
 // Ex: 1200050 => '1,200,050'
 export function numberWithCommas(input: string | number): string {

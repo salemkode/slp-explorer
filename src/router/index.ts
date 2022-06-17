@@ -1,9 +1,4 @@
-import {
-  createRouter,
-  createWebHistory,
-  RouteRecordRaw,
-  onBeforeRouteUpdate,
-} from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 // Page
 import Home from "../views/Home.vue";

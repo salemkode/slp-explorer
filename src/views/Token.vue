@@ -3,8 +3,12 @@
     <div v-if="result" class="token-page container">
       <info-container
         :title="`${result.details.ticker} ${$t(SLP_Type_Name)}`"
-        :token-id="result.details.tokenId"
-        :document-uri="result.details.documentUri"
+        :token="{
+          documentUri: result.details.documentUri,
+          tokenId: result.details.tokenId,
+          type: result.details.type,
+          parentGroupId: result.details.parentGroupId,
+        }"
       />
       <analytics-token :token-stats="result.stats" />
       <div class="tables-container">

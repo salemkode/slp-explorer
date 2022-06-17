@@ -4,8 +4,11 @@
       <!-- -->
       <info-container
         :title="title"
-        :token-id="result.token.tokenId"
-        :document-uri="result.token.documentUri"
+        :token="{
+          tokenId: result.token.tokenId,
+          documentUri: result.token.documentUri,
+          type: result.token.type,
+        }"
       />
 
       <!-- -->

@@ -3,7 +3,7 @@
     class="align-items-center d-flex flex-column my-3 py-3"
     :class="{ 'flex-md-row': tokenState.imageSize === 128 }"
   >
-    <QrcodeVue v-if="address" :value="address" :size="tokenState.imageSize" />
+    <QrcodeVue v-if="address" :value="address" :size="128" />
     <InfoIcon
       v-else-if="token && tokenState.imageURL"
       :tokenId="token.tokenId"
@@ -53,7 +53,7 @@ const subTitle = computed(() => props.address || props.token?.tokenId);
 const tokenState = reactive({
   isIPFS: false,
   imageURL: "",
-  imageSize: 0 as 128 | 0,
+  imageSize: 128 as 128 | 0,
 });
 
 // Function for set token image base of type

@@ -21,7 +21,7 @@ import { useI18n } from "vue-i18n";
 //
 export default defineComponent({
   components: { Table },
-  name: "TokenDetails",
+  name: "TxToken",
   props: {
     token: {
       required: true,

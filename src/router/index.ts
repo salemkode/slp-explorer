@@ -4,7 +4,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import TokenPage from "../views/Token.vue";
 import TxPage from "../views/Tx.vue";
-import TxAddress from "../views/Address.vue";
+import AddressPage from "../views/Address.vue";
 
 // Not found
 import NotFoundPage from "../views/NotFound.vue";
@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/address/:address",
     name: "Address page",
-    component: TxAddress,
+    component: AddressPage,
   },
   {
     path: "/:pathMatch(.*)*",

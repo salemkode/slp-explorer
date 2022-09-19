@@ -5,7 +5,6 @@ import Home from "../views/Home.vue";
 import TokenPage from "../views/Token.vue";
 import TxPage from "../views/Tx.vue";
 import TxAddress from "../views/Address.vue";
-import DonateUs from "../views/DonateUs.vue";
 
 // Not found
 import NotFoundPage from "../views/NotFound.vue";
@@ -33,11 +32,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/address/:address",
     name: "Address page",
     component: TxAddress,
-  },
-  {
-    path: "/donate-us",
-    name: "Donate us page",
-    component: DonateUs,
   },
   {
     path: "/:pathMatch(.*)*",

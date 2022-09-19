@@ -32,12 +32,13 @@
 
     <!-- Copy right -->
     <div class="copy-right bg-dark text-white p-3">
-      <div class="container">
+      <div class="container d-flex justify-content-between">
         <p class="mb-0">
           SLP Explorer © {{ new Date().getFullYear() }}
           <span class="mx-1">|</span> Made with
           <a class="mr-2" href="https://salemkode.com/">SalemKode</a>
         </p>
+        <p>Funded by Bitcoin Cash Community</p>
       </div>
     </div>
   </footer>

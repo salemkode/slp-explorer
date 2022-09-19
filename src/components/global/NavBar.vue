@@ -27,9 +27,7 @@ import NavSearch from "@/components/global/search/NavSearch.vue";
 export default defineComponent({
   components: { AppLink, NavSearch },
   setup() {
-    const routers = {
-      mainmenu_donate_us: "/donate-us",
-    };
+    const routers = {};
 
     //
     return { routers };

@@ -2,7 +2,12 @@
 
 /** Components **/
 .table-title {
-  margin-top: 10px;
+  margin: 20px 0;
+  display: inline-block;
+  background: #5ebd6d;
+  color: white;
+  padding: 5px 25px 5px 12px;
+  border-radius: 35px 100px 100px 35px;
 }
 
 /* Reset */

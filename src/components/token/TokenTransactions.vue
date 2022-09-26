@@ -15,7 +15,7 @@
 <script lang="ts">
 // Modules
 import { defineComponent, PropType, reactive } from "vue";
-import { numberWithCommas } from "@/modules/utilities";
+import { getShortTxid, numberWithCommas } from "@/modules/utilities";
 
 // Components
 import PaginationTable from "@/components/global/table/PaginationTable.vue";
@@ -51,7 +51,7 @@ export default defineComponent({
       //
       return [
         {
-          text: tx.txid,
+          text: getShortTxid(tx.txid),
           copy: tx.txid,
           url: "/tx/" + tx.txid,
         },

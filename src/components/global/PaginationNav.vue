@@ -93,4 +93,7 @@ export default defineComponent({
 .pagination * {
   transition: all 1s;
 }
+.page-item {
+  cursor: pointer;
+}
 </style>

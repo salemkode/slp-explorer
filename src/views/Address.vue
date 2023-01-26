@@ -34,17 +34,13 @@ import AddressTx from "@/components/address/AddressTx.vue";
 export default defineComponent({
   components: { InfoContainer, Table, TokenBalances, AddressTx },
   setup() {
-    // defined route
+    // defined route and router and i18n
     const route = useRoute();
-
-    // defined router
     const router = useRouter();
+    const { t } = useI18n();
 
     // Get tokenId of page
     const address = route.params.address as string;
-
-    //
-    const { t } = useI18n();
 
     //
     if (bchaddr.isValidAddress(address)) {

@@ -18,7 +18,7 @@ export function useAddress(address: string): useAddressReturn {
   >(`/address/${encodeAddress}`, {}, instance);
 
   //
-  const formatedError = ref<null | backend_error>(null);
+  const formattedError = ref<null | backend_error>(null);
 
   //
   onFinished(() => {
@@ -27,7 +27,7 @@ export function useAddress(address: string): useAddressReturn {
     }
 
     // Check if error from axios
-    formatedError.value = handleError(error.value);
+    formattedError.value = handleError(error.value);
   });
 
   //
@@ -67,5 +67,5 @@ export function useAddress(address: string): useAddressReturn {
   }
 
   //
-  return { result, loading, error: formatedError, getBalance, getTransaction };
+  return { result, loading, error: formattedError, getBalance, getTransaction };
 }

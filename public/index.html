@@ -1,40 +1,133 @@
 <!DOCTYPE html>
 <html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta data-hid="description" name="description" content="" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-TileColor" content="#2b5797" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@fountainheadcash" />
+    <meta name="twitter:title" content="SLP Explorer" />
+    <meta
+      name="twitter:description"
+      content="Browse and explore tokens built on top of Bitcoin Cash"
+    />
+    <meta name="twitter:image" content="/image/social.png" />
+    <meta name="twitter:image:alt" content="SLP Explorer" />
+    <meta property="og:url" content="https://simpleledger.info" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SLP Explorer" />
+    <meta
+      property="og:description"
+      content="Browse and explore tokens built on top of Bitcoin Cash"
+    />
+    <meta property="og:image" content="/image/social.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/meta/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/meta/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="/meta/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/meta/site.webmanifest" />
+    <link rel="mask-icon" href="/meta/safari-pinned-tab.svg" color="#5bbad5" />
+    <title>SLP explorer</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta data-hid="description" name="description" content="">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="msapplication-TileColor" content="#2b5797">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@fountainheadcash">
-  <meta name="twitter:title" content="SLP Explorer">
-  <meta name="twitter:description" content="Browse and explore tokens built on top of Bitcoin Cash">
-  <meta name="twitter:image" content="/image/social.png">
-  <meta name="twitter:image:alt" content="SLP Explorer">
-  <meta property="og:url" content="https://simpleledger.info">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="SLP Explorer">
-  <meta property="og:description" content="Browse and explore tokens built on top of Bitcoin Cash">
-  <meta property="og:image" content="/image/social.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/meta/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/meta/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/meta/apple-touch-icon.png">
-  <link rel="manifest" href="/meta/site.webmanifest">
-  <link rel="mask-icon" href="/meta/safari-pinned-tab.svg" color="#5bbad5">
-  <title>SLP explorer</title>
-</head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app" class="app"></div>
+    <script>
+      const API_URL = "https://analytics.salemkode.com/api/event";
 
-<body>
-  <noscript>
-    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
-        Please enable it to continue.</strong>
-  </noscript>
-  <div id="app" class="app"></div>
-  <script defer src="https://analytics.salemkode.com/pls.js"></script>
-  <!-- built files will be auto injected -->
-</body>
+      const ignoreEvents = () => {
+        if (isLocal()) {
+          console.warn("Ignoring event: localhost");
+          return true;
+        }
 
+        if (isDevEnvironment()) {
+          console.warn("Ignoring event: development environment");
+          return true;
+        }
+
+        return false;
+      };
+
+      const isLocal = () => {
+        const { hostname, protocol } = window.location;
+        return (
+          /^localhost$|^127(\.[0-9]+){0,2}\.[0-9]+$|^\[::1?\]$/.test(
+            hostname
+          ) || protocol === "file:"
+        );
+      };
+
+      const isDevEnvironment = () => {
+        return (
+          window._phantom ||
+          window.__nightmare ||
+          window.navigator.webdriver ||
+          window.Cypress
+        );
+      };
+
+      const sendEvent = (eventType, meta, props) => {
+        if (ignoreEvents()) {
+          return;
+        }
+
+        const data = {
+          eventType,
+          url: window.location.href,
+          referrer: document.referrer || null,
+          windowWidth: window.innerWidth,
+          meta: JSON.stringify(meta),
+          props,
+        };
+
+        fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+      };
+
+      const trackPageview = () => {
+        sendEvent("pageview");
+      };
+
+      let currentPath = window.location.pathname;
+
+      window.addEventListener("popstate", () => {
+        if (currentPath !== window.location.pathname) {
+          currentPath = window.location.pathname;
+          trackPageview();
+        }
+      });
+
+      trackPageview();
+    </script>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
